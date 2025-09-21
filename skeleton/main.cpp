@@ -7,6 +7,7 @@
 #include "core.hpp"
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
+#include "Vector3D.h"
 
 #include <iostream>
 
@@ -30,7 +31,10 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-RenderItem* item = nullptr;
+RenderItem* center = nullptr;
+RenderItem* x = nullptr;
+RenderItem* y = nullptr;
+RenderItem* z = nullptr;
 
 
 // Initialize physics engine
@@ -59,11 +63,32 @@ void initPhysics(bool interactive)
 
 	auto geo = PxSphereGeometry(1.0f);
 	auto shape = CreateShape(geo);
-	auto tf = new PxTransform(0, 0, 0);
-	auto color = Vector4(0, 0, 1, 1);
-	item = new RenderItem(shape, tf, color);
+
+	Vector3D vec = { 0, 0, 0 };
+	auto tf = new PxTransform(vec.x, vec.y, vec.z);
+	auto color = Vector4(1, 1, 1, 1);
+	center = new RenderItem(shape, tf, color);
+
+
+	auto vecX = vec + Vector3D{ 10, 0, 0 };
+	auto tfX = new PxTransform(vecX.x, vecX.y, vecX.z);
+	color = Vector4(1, 0, 0, 1);
+	x = new RenderItem(shape, tfX, color);
 	
-	RegisterRenderItem(item);
+	auto vecY = vec + Vector3D{ 0, 10, 0 };
+	auto tfY = new PxTransform(vecY.x, vecY.y, vecY.z);
+	color = Vector4(0, 1, 0, 1);
+	y = new RenderItem(shape, tfY, color);
+
+	auto vecZ = vec + Vector3D{ 0, 0, 10 };
+	auto tfZ = new PxTransform(vecZ.x, vecZ.y, vecZ.z);
+	color = Vector4(0, 0, 1, 1);
+	z = new RenderItem(shape, tfZ, color);
+	
+	RegisterRenderItem(center);
+	RegisterRenderItem(x);
+	RegisterRenderItem(y);
+	RegisterRenderItem(z);
 	}
 
 
@@ -82,7 +107,10 @@ void stepPhysics(bool interactive, double t)
 // Add custom code to the begining of the function
 void cleanupPhysics(bool interactive)
 {
-	DeregisterRenderItem(item);
+	DeregisterRenderItem(center);
+	DeregisterRenderItem(x);
+	DeregisterRenderItem(y);
+	DeregisterRenderItem(z);
 
 	PX_UNUSED(interactive);
 

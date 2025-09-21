@@ -35,16 +35,16 @@ Vector3D::operator=(Vector3D const& other) {
 }
 
 Vector3D 
-Vector3D::operator+(Vector3D const& v1, Vector3D const& v2) {
-	return Vector3D(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+Vector3D::operator+(Vector3D const& v2) {
+	return Vector3D(x + v2.x, y + v2.y, z + v2.z);
 }
 
 Vector3D
-Vector3D::operator-(Vector3D const& v1, Vector3D const& v2) {
-	return Vector3D(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+Vector3D::operator-(Vector3D const& v2) {
+	return Vector3D(x - v2.x, y - v2.y, z - v2.z);
 }
 
 double
-Vector3D::operator*(Vector3D const& v1, Vector3D const& v2) {
-	return v1.dotProduct(v2);
+Vector3D::operator*(Vector3D const& v2) {
+	return dotProduct(v2);
 }

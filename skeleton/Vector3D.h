@@ -13,9 +13,9 @@ public:
 	Vector3D scalarProduct(double scalar) const;
 
 	void operator=(Vector3D const& other);
-	static Vector3D operator+(Vector3D const& v1, Vector3D const& v2);
-	static Vector3D operator-(Vector3D const& v1, Vector3D const& v2);
-	static double operator*(Vector3D const& v1, Vector3D const& v2);
+	Vector3D operator+(Vector3D const& v2);
+	Vector3D operator-(Vector3D const& v2);
+	double operator*(Vector3D const& v2);
 
 private:
 };
