@@ -8,7 +8,7 @@
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
 #include "Vector3D.h"
-#include "Particle.h"
+#include "Cannon.h"
 
 #include <iostream>
 
@@ -32,7 +32,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-Particle* part = nullptr;
+Cannon* mCannon = nullptr;
 
 
 // Initialize physics engine
@@ -59,7 +59,7 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	part = new Particle(Vector3(0, 0, 0), Vector3(0, 10, 0), Vector3(0, -1, 0), 5, 0.9);
+	mCannon = new Cannon({ 0, 0, 0 }, { 20, 20, 0 }, { 0, -9.8, 0 }, 10.0, 1.0, Particle::EULER, 10.0);
 	}
 
 
@@ -68,14 +68,7 @@ void initPhysics(bool interactive)
 // t: time passed since last call in milliseconds
 void stepPhysics(bool interactive, double t)
 {
-
-	if (part != nullptr) {
-		part->Integrate(t, Particle::Mode::EULER);
-		if (part->hasToDie()) {
-			delete part;
-			part = nullptr;
-		}
-	}
+	mCannon->Update(t);
 
 	PX_UNUSED(interactive);
 
@@ -87,6 +80,9 @@ void stepPhysics(bool interactive, double t)
 // Add custom code to the begining of the function
 void cleanupPhysics(bool interactive)
 {
+	delete mCannon;
+	mCannon = nullptr;
+
 	PX_UNUSED(interactive);
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
@@ -108,12 +104,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 	switch(toupper(key))
 	{
-	//case 'B': break;
-	//case ' ':	break;
-	case ' ':
-	{
+	case 'B':
+		mCannon->Shoot();
 		break;
-	}
 	default:
 		break;
 	}
