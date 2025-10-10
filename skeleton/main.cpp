@@ -11,6 +11,8 @@
 #include "Cannon.h"
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 std::string display_text = "This is a test";
 
@@ -59,7 +61,7 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	mCannon = new Cannon({ 0, 0, 0 }, { 20, 20, 0 }, { 0, -9.8, 0 }, 10.0, 1.0, Particle::EULER, 10.0);
+	mCannon = new Cannon({ 0, 0, 0 }, { -20, 0, -20 }, { 0, sceneDesc.gravity.y, 0 }, 10.0, 1.0, Particle::EULER, 10.0);
 	}
 
 
@@ -68,12 +70,14 @@ void initPhysics(bool interactive)
 // t: time passed since last call in milliseconds
 void stepPhysics(bool interactive, double t)
 {
-	mCannon->Update(t);
-
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
+
+	mCannon->Update(t);
+
+	std::this_thread::sleep_for(std::chrono::microseconds(10));
 }
 
 // Function to clean data
@@ -102,9 +106,25 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
+
 	switch(toupper(key))
 	{
-	case 'B':
+	case '1':
+		mCannon->setType(Cannon::Bullet);
+		mCannon->setPosition(camera.p);
+		mCannon->setVel(camera.q);
+		mCannon->Shoot();
+		break;
+	case '2':
+		mCannon->setType(Cannon::Bowling_ball);
+		mCannon->setPosition(camera.p);
+		mCannon->setVel(camera.q);
+		mCannon->Shoot();
+		break;
+	case '3':
+		mCannon->setType(Cannon::Balloon);
+		mCannon->setPosition(camera.p);
+		mCannon->setVel(camera.q);
 		mCannon->Shoot();
 		break;
 	default:

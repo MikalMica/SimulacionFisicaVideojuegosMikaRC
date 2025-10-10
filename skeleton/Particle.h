@@ -29,19 +29,20 @@ private:
 	double tVida; // in seconds
 	double damping;
 	Vector3 lasPos;
+	Vector4 colour;
 	Mode mode;
 
 public:
-	Particle() : pos(new PxTransform({0, 0, 0})), v(0, 0, 0), a(0, 0, 0), m(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER){
+	Particle() : pos(new PxTransform({ 0, 0, 0 })), v(0, 0, 0), a(0, 0, 0), m(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER), colour({ 1, 0, 0, 1 }) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
-		item = new RenderItem(shape, pos, Vector4(1, 0, 0, 1));
+		item = new RenderItem(shape, pos, colour);
 	}
 
-	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, Mode m) : pos(new PxTransform(P)), v(V), a(A), m(1.0), tVida(T), damping(d), lasPos(0, 0, 0), mode(m) {
+	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, Mode m, Vector4 c) : pos(new PxTransform(P)), v(V), a(A), m(1.0), tVida(T), damping(d), lasPos(0, 0, 0), mode(m), colour(c) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
-		item = new RenderItem(shape, pos, Vector4(1, 0, 0, 1));
+		item = new RenderItem(shape, pos, colour);
 	}
 
 	~Particle() { DeregisterRenderItem(item); item = nullptr; pos = nullptr; }
