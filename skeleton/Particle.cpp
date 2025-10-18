@@ -33,5 +33,5 @@ Particle::Integrate(double t) {
 	}
 
 	tVida -= t;
-	//std::cout << tVida << "\n";
+	if (tVida <= 0.0) dead = true;
 }

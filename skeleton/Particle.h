@@ -31,15 +31,18 @@ private:
 	Vector3 lasPos;
 	Vector4 colour;
 	Mode mode;
+	Vector3 originalPos;
+
+	bool dead = false;
 
 public:
-	Particle() : pos(new PxTransform({ 0, 0, 0 })), v(0, 0, 0), a(0, 0, 0), m(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER), colour({ 1, 0, 0, 1 }) {
+	Particle() : pos(new PxTransform({ 0, 0, 0 })), v(0, 0, 0), a(0, 0, 0), m(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER), colour({ 1, 0, 0, 1 }), originalPos(pos->p) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, pos, colour);
 	}
 
-	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, Mode m, Vector4 c) : pos(new PxTransform(P)), v(V), a(A), m(1.0), tVida(T), damping(d), lasPos(0, 0, 0), mode(m), colour(c) {
+	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, Mode m, Vector4 c) : pos(new PxTransform(P)), v(V), a(A), m(1.0), tVida(T), damping(d), lasPos(0, 0, 0), mode(m), colour(c), originalPos(P) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, pos, colour);
@@ -51,6 +54,7 @@ public:
 	void Integrate(double t);
 	inline void setMode(Mode m) { mode = m; }
 
-	bool hasToDie() { return tVida <= 0.0; }
+	inline bool hasToDie() { return dead; }
+	inline bool isFarFromOrigin(double distance) { if (((pos->p - originalPos).magnitude() > distance)) { dead = true; return dead; } return false; }
 };
 

@@ -8,7 +8,8 @@
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
 #include "Vector3D.h"
-#include "Cannon.h"
+#include "ParticleSystem.h"
+#include "GaussianGen.h"
 
 #include <iostream>
 #include <thread>
@@ -34,7 +35,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-Cannon* mCannon = nullptr;
+ParticleSystem* pSys = nullptr;
 
 
 // Initialize physics engine
@@ -61,7 +62,14 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	mCannon = new Cannon({ 0, 0, 0 }, { -20, 0, -20 }, { 0, sceneDesc.gravity.y, 0 }, 10.0, 1.0, Particle::EULER, 10.0);
+	pSys = new ParticleSystem(1000);
+	GaussianGen* explosion = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::EULER, 3, 1, 1, { 0, 0, 0 }, { 100, 100, 100 }, { 1, 0, 0, 1 });
+	GaussianGen* mist = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 30, 500, 0.6, 0.9, Particle::EULER, 3, 1, 1, { 50, 50, 50 }, { 0.5, 0.5, 0.5 }, { 1, 0, 1, 1 });
+	mist->changeAc({ 0.0, 0.0, 0.0 });
+	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 10, 0 }, 7, 500, 0.6, 0.9, Particle::EULER, 5, 1, 1, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, {0, 0, 1, 1});
+	pSys->addGen(explosion);
+	pSys->addGen(mist);
+	pSys->addGen(water);
 	}
 
 
@@ -75,7 +83,7 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	mCannon->Update(t);
+	pSys->Update(t);
 
 	std::this_thread::sleep_for(std::chrono::microseconds(10));
 }
@@ -84,8 +92,8 @@ void stepPhysics(bool interactive, double t)
 // Add custom code to the begining of the function
 void cleanupPhysics(bool interactive)
 {
-	delete mCannon;
-	mCannon = nullptr;
+	delete pSys;
+	pSys = nullptr;
 
 	PX_UNUSED(interactive);
 
@@ -106,26 +114,17 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
-
+	
 	switch(toupper(key))
 	{
 	case '1':
-		mCannon->setType(Cannon::Bullet);
-		mCannon->setPosition(camera.p);
-		mCannon->setVel(camera.q);
-		mCannon->Shoot();
+		pSys->setGenerator(0);
 		break;
 	case '2':
-		mCannon->setType(Cannon::Bowling_ball);
-		mCannon->setPosition(camera.p);
-		mCannon->setVel(camera.q);
-		mCannon->Shoot();
+		pSys->setGenerator(1);
 		break;
 	case '3':
-		mCannon->setType(Cannon::Balloon);
-		mCannon->setPosition(camera.p);
-		mCannon->setVel(camera.q);
-		mCannon->Shoot();
+		pSys->setGenerator(2);
 		break;
 	default:
 		break;

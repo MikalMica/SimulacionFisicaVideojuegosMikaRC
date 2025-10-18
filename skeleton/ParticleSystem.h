@@ -7,15 +7,19 @@ class ParticleSystem
 {
 	std::queue<Particle*> particles;
 	std::vector<ParticleGen*> generators;
-	Vector3 iPos;
+	int maxParticles;
+	int genIndex = 0;
 public:
-	ParticleSystem(Vector3 P, Vector3 V, Vector3 A, double T, double d, Particle::Mode m, double M)
-		: iPos(P) {
-		particles = std::queue<Particle*>();
-	};
+	ParticleSystem(int max) : maxParticles(max) {}
+	ParticleSystem(std::vector<ParticleGen*> gens, int max) : maxParticles(max), generators(gens) {}
 
-	~ParticleSystem() { int size = particles.size(); for (int i = 0; i < size; ++i) { auto aux = particles.front(); particles.pop(); delete aux; aux = nullptr; }
-	
+	~ParticleSystem() {
+		int size = particles.size(); for (int i = 0; i < size; ++i) { auto aux = particles.front(); particles.pop(); delete aux; aux = nullptr; }
+		size = generators.size(); for (int i = 0; i < size; ++i) { delete generators[i]; generators[i] = nullptr; };
+	}
+
 	void Update(double t);
-};
 
+	inline void addGen(ParticleGen* gen) { generators.push_back(gen); }
+	inline void setGenerator(int index) { genIndex = index; }
+};
