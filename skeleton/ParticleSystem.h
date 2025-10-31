@@ -1,14 +1,18 @@
 #pragma once
 #include <queue>
+#include <functional>
 #include "Particle.h"
 class ParticleGen;
+class ForceGenerator;
 
 class ParticleSystem
 {
 	std::queue<Particle*> particles;
 	std::vector<ParticleGen*> generators;
+	std::vector<ForceGenerator*> forces;
 	int maxParticles;
 	int genIndex = 0;
+	int forceIndex = 0;
 public:
 	ParticleSystem(int max) : maxParticles(max) {}
 	ParticleSystem(std::vector<ParticleGen*> gens, int max) : maxParticles(max), generators(gens) {}
@@ -21,5 +25,12 @@ public:
 	void Update(double t);
 
 	inline void addGen(ParticleGen* gen) { generators.push_back(gen); }
+	void removeGen(ParticleGen* gen);
 	inline void setGenerator(int index) { genIndex = index; }
+
+	inline void applyForceGenerator(ForceGenerator* gen) { forces.push_back(gen); }
+	void deleteForceGenerator(ForceGenerator* gen);
+
 };
+
+// Viento: F_v = K_1 (O_v - O) + K_2 (v_v - v) |v_v - v|

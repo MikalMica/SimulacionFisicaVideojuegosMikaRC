@@ -23,9 +23,10 @@ public:
 private:
 	RenderItem* item;
 	PxTransform* pos;
+	Vector3 force;
 	Vector3 v;
 	Vector3 a;
-	double m;
+	double invM;
 	double tVida; // in seconds
 	double damping;
 	Vector3 lasPos;
@@ -36,13 +37,13 @@ private:
 	bool dead = false;
 
 public:
-	Particle() : pos(new PxTransform({ 0, 0, 0 })), v(0, 0, 0), a(0, 0, 0), m(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER), colour({ 1, 0, 0, 1 }), originalPos(pos->p) {
+	Particle() : pos(new PxTransform({ 0, 0, 0 })), v(0, 0, 0), a(0, 0, 0), invM(1.0), tVida(10), damping(1.0), lasPos(0, 0, 0), mode(EULER), colour({ 1, 0, 0, 1 }), originalPos(pos->p), force(0, 0, 0) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, pos, colour);
 	}
 
-	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, Mode m, Vector4 c) : pos(new PxTransform(P)), v(V), a(A), m(1.0), tVida(T), damping(d), lasPos(0, 0, 0), mode(m), colour(c), originalPos(P) {
+	Particle(Vector3 P, Vector3 V, Vector3 A, double T, double d, double M, Mode mod, Vector4 c) : pos(new PxTransform(P)), invM(pow(M, -1)), v(V), a(A), tVida(T), damping(d), lasPos(0, 0, 0), mode(mod), colour(c), originalPos(P), force(0, 0, 0) {
 		auto geom = PxSphereGeometry(1.0f);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, pos, colour);
@@ -56,5 +57,11 @@ public:
 
 	inline bool hasToDie() { return dead; }
 	inline bool isFarFromOrigin(double distance) { if (((pos->p - originalPos).magnitude() > distance)) { dead = true; return dead; } return false; }
+	inline void addForce(Vector3 const& nForce) { force += nForce; }
+	inline void clearForce() { force = { 0, 0, 0 }; a = { 0, 0, 0 }; }
+	inline void setStatic() { invM = 0; }
+
+	inline Vector3 getPosition() { return pos->p; }
+	inline Vector3 getVelocity() { return v; }
 };
 

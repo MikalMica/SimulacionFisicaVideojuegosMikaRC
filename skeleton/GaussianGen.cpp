@@ -9,7 +9,7 @@ GaussianGen::generateP() {
 		Vector3 pSource = { pos.x + posVar.x * d(mt), pos.y + posVar.y * d(mt), pos.z + posVar.z * d(mt) };
 		Vector3 vSource = { vel.x + velVar.x * d(mt), vel.y + velVar.y * d(mt), vel.z + velVar.z * d(mt) };
 
-		Particle* p = new Particle(pSource, vSource, ac, dur + lifeVar * d(mt), damping, mode, colour);
+		Particle* p = new Particle(pSource, vSource, ac, dur + lifeVar * d(mt), damping, mass, mode, colour);
 		particles.push_back(p);
 	}
 

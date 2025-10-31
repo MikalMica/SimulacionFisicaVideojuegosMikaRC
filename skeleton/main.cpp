@@ -10,6 +10,8 @@
 #include "Vector3D.h"
 #include "ParticleSystem.h"
 #include "GaussianGen.h"
+#include "WindForceGenerator.h"
+#include "GravityForceGenerator.h"
 
 #include <iostream>
 #include <thread>
@@ -63,13 +65,12 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	pSys = new ParticleSystem(1000);
-	GaussianGen* explosion = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::EULER, 3, 1, 1, { 0, 0, 0 }, { 100, 100, 100 }, { 1, 0, 0, 1 });
-	GaussianGen* mist = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 30, 500, 0.6, 0.9, Particle::EULER, 3, 1, 1, { 50, 50, 50 }, { 0.5, 0.5, 0.5 }, { 1, 0, 1, 1 });
-	mist->changeAc({ 0.0, 0.0, 0.0 });
-	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 10, 0 }, 7, 500, 0.6, 0.9, Particle::EULER, 5, 1, 1, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, {0, 0, 1, 1});
-	pSys->addGen(explosion);
-	pSys->addGen(mist);
+	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::SI_EULER, 5, 1, 1, 1.0, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, {0, 0, 1, 1});
+	WindForceGenerator* wind = new WindForceGenerator({ 10.0, 0.0, 0.0 });
+	GravityForceGenerator* gravity = new GravityForceGenerator();
 	pSys->addGen(water);
+	//pSys->applyForceGenerator(gravity);
+	pSys->applyForceGenerator(wind);
 	}
 
 
@@ -117,15 +118,6 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	
 	switch(toupper(key))
 	{
-	case '1':
-		pSys->setGenerator(0);
-		break;
-	case '2':
-		pSys->setGenerator(1);
-		break;
-	case '3':
-		pSys->setGenerator(2);
-		break;
 	default:
 		break;
 	}

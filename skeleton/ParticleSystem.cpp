@@ -1,4 +1,5 @@
 #include "ParticleSystem.h"
+#include "ForceGenerator.h"
 #include "GaussianGen.h"
 
 void
@@ -17,6 +18,14 @@ ParticleSystem::Update(double t) {
 		auto p = particles.front();
 		particles.pop();
 
+		
+		if (!forces.empty()) {
+			for (int j = 0; j < forces.size(); ++j) {
+				if (forces[j]->checkCondition(p))
+					p->addForce(forces[j]->forceToApply(p));
+
+			}
+		}
 		p->Integrate(t);
 		p->isFarFromOrigin(generators[genIndex]->getDistance());
 
@@ -27,3 +36,14 @@ ParticleSystem::Update(double t) {
 		}
 	}
 }
+
+void
+ParticleSystem::removeGen(ParticleGen* gen) {
+	// remove ParticleGen
+}
+
+void 
+ParticleSystem::deleteForceGenerator(ForceGenerator* gen) {
+	// remove Force generator
+}
+

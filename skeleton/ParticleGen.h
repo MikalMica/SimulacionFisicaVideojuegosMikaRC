@@ -22,6 +22,7 @@ protected:
 	Vector3 pos;
 	Vector3 vel;
 	Vector3 ac;
+	double mass;
 	double dur;
 	double probGen;
 	double damping;
@@ -51,13 +52,14 @@ public:
 	/// <param name="maxParticles">maximum number of particles that will be created each generateP</param>
 	/// <param name="lVar">variation of lifetime</param>
 	/// <param name="dVar">variation of distance</param>
+	/// <param name="ma">mass of the particle</param>
 	/// <param name="pVar">variation of initial position</param>
 	/// <param name="vVar">variation of initial velocity</param>
 	/// <param name="col">colour</param>
 	ParticleGen(Vector3 p, Vector3 v, double lifeT, double dist, double prob, double damp, Particle::Mode m, 
-		int maxParticles, double lVar, double dVar, Vector3 pVar, Vector3 vVar, Vector4 col) 
+		int maxParticles, double lVar, double dVar, double ma, Vector3 pVar, Vector3 vVar, Vector4 col) 
 		: pos(p), vel(v), dur(lifeT), probGen(prob), numParticles(maxParticles), damping(damp), mode(m),
-		distance(dist), posVar(pVar), velVar(vVar), lifeVar(lVar), distanceVar(dVar), colour(col), ac(GRAVITY) {}
+		distance(dist), posVar(pVar), velVar(vVar), lifeVar(lVar), distanceVar(dVar), colour(col), ac(GRAVITY), mass(ma) {}
 
 	virtual std::vector<Particle*> generateP() = 0;
 

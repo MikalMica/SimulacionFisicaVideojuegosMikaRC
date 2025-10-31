@@ -23,7 +23,7 @@ Cannon::Update(double t) {
 void
 Cannon::Shoot() {
 	if (bullets.size() >= MAX_BULLETS) return;
-	auto part = new Particle(iPos, Svel, particles[pType].ac, tVida, damping, mode, particles[pType].colour);
+	auto part = new Particle(iPos, Svel, particles[pType].ac, tVida, damping, Smass, mode, particles[pType].colour);
 	bullets.push(part);
 }
 

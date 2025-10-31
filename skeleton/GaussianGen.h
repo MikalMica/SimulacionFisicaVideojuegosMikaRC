@@ -8,8 +8,8 @@ class GaussianGen : public ParticleGen
 
 public:
 	GaussianGen(Vector3 p, Vector3 v, double lifeT, double dist, double prob, double damp, Particle::Mode m,
-		int maxParticles, double lVar, double dVar, Vector3 pVar, Vector3 vVar, Vector4 colour)
-		: ParticleGen(p, v, lifeT, dist, prob, damp, m, maxParticles, lVar, dVar, pVar, vVar, colour) {
+		int maxParticles, double lVar, double dVar, double ma, Vector3 pVar, Vector3 vVar, Vector4 colour)
+		: ParticleGen(p, v, lifeT, dist, prob, damp, m, maxParticles, lVar, dVar, ma, pVar, vVar, colour) {
 	}
 
 	std::vector<Particle*> generateP() override;

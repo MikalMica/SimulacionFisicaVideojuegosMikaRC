@@ -4,6 +4,8 @@
 void
 Particle::Integrate(double t) {
 
+	auto l = force;
+	a = force * invM;
 
 	switch (mode) {
 	case(Mode::EULER):
@@ -31,6 +33,7 @@ Particle::Integrate(double t) {
 		pos->p = nPos;
 		break;
 	}
+	clearForce();
 
 	tVida -= t;
 	if (tVida <= 0.0) dead = true;
