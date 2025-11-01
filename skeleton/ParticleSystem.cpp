@@ -35,6 +35,10 @@ ParticleSystem::Update(double t) {
 			p = nullptr;
 		}
 	}
+
+	for (auto forceGen : forces) {
+		forceGen->Update(t);
+	}
 }
 
 void

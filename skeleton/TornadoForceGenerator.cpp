@@ -3,10 +3,18 @@
 
 Vector3 
 TornadoForceGenerator::forceToApply(Particle* p) {
-	auto vel = p->getPosition().cross(origin);
-	vel.z *= -1;
-	vel.y += 50;
-	vel *= k1;
 
-	//Aplicar fuerza
+	auto k = force.getNormalized() * Kt;
+	auto vel = k.cross(p->getPosition() - origin);
+
+	auto diff = vel - p->getVelocity();
+	return  k1 * diff + k2 * abs(diff.magnitude()) * diff;
+}
+
+bool
+TornadoForceGenerator::checkCondition(Particle* p) {
+
+	if (r == 0.0f) return true;
+
+	return (p->getPosition() - origin).magnitude() < r;
 }

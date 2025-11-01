@@ -23,4 +23,5 @@ public:
 
 	virtual bool checkCondition(Particle* p) { return true; }
 	virtual inline Vector3 forceToApply(Particle* p) { return force; }
+	virtual inline void Update(double t) {}
 };

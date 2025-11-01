@@ -10,8 +10,9 @@
 #include "Vector3D.h"
 #include "ParticleSystem.h"
 #include "GaussianGen.h"
-#include "WindForceGenerator.h"
+#include "TornadoForceGenerator.h"
 #include "GravityForceGenerator.h"
+#include "ExplosionForceGenerator.h"
 
 #include <iostream>
 #include <thread>
@@ -68,9 +69,12 @@ void initPhysics(bool interactive)
 	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::SI_EULER, 5, 1, 1, 1.0, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, {0, 0, 1, 1});
 	WindForceGenerator* wind = new WindForceGenerator({ 10.0, 0.0, 0.0 });
 	GravityForceGenerator* gravity = new GravityForceGenerator();
+	TornadoForceGenerator* tornado = new TornadoForceGenerator({0, 1, 0}, { 0, 0, 0 }, 10);
+
 	pSys->addGen(water);
+	//pSys->applyForceGenerator(tornado);
 	//pSys->applyForceGenerator(gravity);
-	pSys->applyForceGenerator(wind);
+	//pSys->applyForceGenerator(wind);
 	}
 
 
@@ -116,9 +120,14 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	PX_UNUSED(camera);
 
 	
+	auto explosion = new ExplosionForceGenerator(10, 100, 1, { 0, 0, 0 });
 	switch(toupper(key))
 	{
+	case '1':
+		pSys->applyForceGenerator(explosion);
+		break;
 	default:
+		delete explosion;
 		break;
 	}
 }
