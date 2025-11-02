@@ -20,7 +20,7 @@ public:
 		POST_VERLET
 	};
 
-private:
+protected:
 	RenderItem* item;
 	PxTransform* pos;
 	Vector3 force;
@@ -63,5 +63,6 @@ public:
 
 	inline Vector3 getPosition() { return pos->p; }
 	inline Vector3 getVelocity() { return v; }
+	double SetSimulatedVel(double simulatedVel);
 };
 

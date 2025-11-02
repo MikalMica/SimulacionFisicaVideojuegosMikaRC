@@ -35,6 +35,24 @@ Particle::Integrate(double t) {
 	}
 	clearForce();
 
-	tVida -= t;
-	if (tVida <= 0.0) dead = true;
+	// If the time left is less than zero before the sustraction, the particle isn't destroyed
+	if (tVida >= 0) {
+		tVida -= t;
+		if (tVida <= 0.0) dead = true;
+	}
+
+	return;
+}
+
+double
+Particle::SetSimulatedVel(double simulatedVel) {
+
+	auto direction = v.normalize();
+	double realVel = v.magnitude();
+
+	v = Vector3(direction * simulatedVel);
+	auto simMass = pow(invM, -1) * pow(realVel / simulatedVel, 2);
+	invM = pow(simMass, -1);
+
+	return simMass;
 }

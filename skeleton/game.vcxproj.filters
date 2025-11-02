@@ -21,6 +21,10 @@
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Spaceship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -43,6 +47,10 @@
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="TornadoForceGenerator.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Spaceship.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
