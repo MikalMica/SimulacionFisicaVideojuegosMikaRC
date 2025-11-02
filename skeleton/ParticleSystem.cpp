@@ -1,6 +1,6 @@
-#include "ParticleSystem.h"
 #include "ForceGenerator.h"
 #include "GaussianGen.h"
+#include "ParticleSystem.h"
 
 void
 ParticleSystem::Update(double t) {
@@ -51,3 +51,16 @@ ParticleSystem::deleteForceGenerator(ForceGenerator* gen) {
 	// remove Force generator
 }
 
+void 
+ParticleSystem::DestroyAllParticles() {
+
+	int size = particles.size();
+
+	for (int i = 0; i < size; ++i) {
+		auto p = particles.front();
+		particles.pop();
+
+		delete p;
+		p = nullptr;
+	}
+}

@@ -32,8 +32,5 @@ public:
 
 	std::vector<Particle*> generateP() override;
 	inline double getDistance() override { return distance + distanceVar * d(mt); }
-
-	inline void setPosition(Vector3 nPos) { pos = nPos; }
-	inline Vector3 getPosition() { return pos; }
 };
 

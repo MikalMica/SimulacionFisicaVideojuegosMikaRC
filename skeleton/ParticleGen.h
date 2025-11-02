@@ -65,5 +65,8 @@ public:
 
 	virtual inline double getDistance() { return distance + distanceVar * u(mt); }
 	virtual inline void changeAc(Vector3 acel) { ac = acel; }
+
+	inline void setPosition(Vector3 nPos) { pos = nPos; }
+	inline Vector3 getPosition() { return pos; }
 };
 

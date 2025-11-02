@@ -4,11 +4,13 @@
 void 
 GameScene::Update(double t) {
 
+	mSpaceship->Update(t);
 }
 
 void 
 GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 
+	mSpaceship->keyPress(key, camera);
 }
 
 void 

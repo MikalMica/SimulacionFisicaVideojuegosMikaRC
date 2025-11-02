@@ -2,7 +2,7 @@
 #include <queue>
 #include <functional>
 #include "Particle.h"
-class ParticleGen;
+#include "ParticleGen.h"
 class ForceGenerator;
 
 class ParticleSystem
@@ -30,6 +30,11 @@ public:
 
 	inline void applyForceGenerator(ForceGenerator* gen) { forces.push_back(gen); }
 	void deleteForceGenerator(ForceGenerator* gen);
+
+	inline void setCurrPosition(Vector3 nPos) { generators[genIndex]->setPosition(nPos); }
+	inline Vector3 getCurrPosition() { return generators[genIndex]->getPosition(); }
+
+	void DestroyAllParticles();
 
 };
 

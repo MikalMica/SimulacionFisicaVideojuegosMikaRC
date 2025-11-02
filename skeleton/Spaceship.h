@@ -12,12 +12,24 @@ class Spaceship : public Particle
 	double sizeY;
 	double sizeZ;
 
+	// Propulsion speed
+	float propulsionSpeed;
+
+	// force to add each frame. Changes depending on the propulsor
+	Vector3 forceToAdd;
+
+	// Boolean to set is neccesary to spawn particles of propulsor
+	bool showPropulsion;
+
 public:
 	Spaceship() 
 		: Particle({ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 100.0, Particle::SI_EULER, { 43.0 / 255, 76.0 / 255, 142.0 / 255, 1.0 })
 		, sizeX(5) 
 		, sizeY(5)
 		, sizeZ(10)
+		, propulsionSpeed(100.0)
+		, showPropulsion(false)
+		, forceToAdd({0, 0, 0})
 	{
 	
 		auto geom = PxBoxGeometry(sizeX, sizeY, sizeZ);
@@ -26,10 +38,10 @@ public:
 		item = new RenderItem(shape, pos, colour);
 
 		mPSys = new ParticleSystem(1000);
-		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, -sizeZ / 2), { 0, 0, -10 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 0, 0, 10 }, { 1, 0.64, 0, 1 }));
+		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, sizeZ / 2), { 0, 0, -10 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 10, 10, 0 }, { 1, 0.64, 0, 1 }));
 	}
 
-	void Update();
+	void Update(double t);
 	void keyPress(unsigned char key, const PxTransform& camera);
 };
 
