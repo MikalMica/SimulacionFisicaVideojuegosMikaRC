@@ -21,15 +21,29 @@ class Spaceship : public Particle
 	// Boolean to set is neccesary to spawn particles of propulsor
 	bool showPropulsion;
 
+	// Timer to stop going forward 
+	double propulsionTimer;
+
+	// Time until propulsor stops
+	double propulsionTime;
+
+	// Camera offset
+	double ZOffset;
+	double YOffset;
+
 public:
-	Spaceship() 
+	Spaceship()
 		: Particle({ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 100.0, Particle::SI_EULER, { 43.0 / 255, 76.0 / 255, 142.0 / 255, 1.0 })
-		, sizeX(5) 
+		, sizeX(5)
 		, sizeY(5)
 		, sizeZ(10)
-		, propulsionSpeed(100.0)
+		, propulsionSpeed(1000.0)
 		, showPropulsion(false)
-		, forceToAdd({0, 0, 0})
+		, forceToAdd({ 0, 0, 0 })
+		, propulsionTime(0.5)
+		, propulsionTimer(0)
+		, ZOffset(10.0)
+		, YOffset(10.0)
 	{
 	
 		auto geom = PxBoxGeometry(sizeX, sizeY, sizeZ);

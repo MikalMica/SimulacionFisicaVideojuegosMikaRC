@@ -63,6 +63,7 @@ public:
 
 	inline Vector3 getPosition() { return pos->p; }
 	inline Vector3 getVelocity() { return v; }
+	inline double getMass() { return pow(invM, -1); }
 	double SetSimulatedVel(double simulatedVel);
 };
 
