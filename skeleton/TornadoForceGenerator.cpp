@@ -16,5 +16,5 @@ TornadoForceGenerator::checkCondition(Particle* p) {
 
 	if (r == 0.0f) return true;
 
-	return (p->getPosition() - origin).magnitude() < r;
+	return (p->getPosition() - origin).magnitude() < r && enabled;
 }

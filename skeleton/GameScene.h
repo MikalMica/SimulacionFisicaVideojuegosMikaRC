@@ -2,17 +2,22 @@
 #include "Scene.h"
 
 class Spaceship;
+class Cannon;
 
 class GameScene : public Scene
 {
 	// The player
 	Spaceship* mSpaceship;
 
+	// UI Cannon
+	Cannon* mCannon;
+
 public:
 
 	GameScene()
 		: Scene()
 		, mSpaceship(nullptr)
+		, mCannon(nullptr)
 	{}
 
 	void Update(double t) override;

@@ -5,7 +5,7 @@ bool
 RealGravityForceGenerator::checkCondition(Particle* p) {
 	if (radius < 0) return true;
 
-	return (p->getPosition() - origin).magnitude() < radius;
+	return (p->getPosition() - origin).magnitude() < radius && enabled;
 }
 
 Vector3 

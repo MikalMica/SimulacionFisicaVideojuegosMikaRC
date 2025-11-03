@@ -18,10 +18,13 @@ class ForceGenerator
 {
 protected:
 	Vector3 force;
+	bool enabled;
 public:
-	ForceGenerator(Vector3 f) : force(f) {}
+	ForceGenerator(Vector3 f) : force(f), enabled(true) {}
 
-	virtual bool checkCondition(Particle* p) { return true; }
+	virtual bool checkCondition(Particle* p) { return enabled; }
 	virtual inline Vector3 forceToApply(Particle* p) { return force; }
 	virtual inline void Update(double t) {}
+	inline bool getEnabled() { return enabled; }
+	inline void changeEnabled() { enabled = !enabled; }
 };

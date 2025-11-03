@@ -14,6 +14,9 @@ Spaceship::Update(double t) {
 	}
 
 	mPSys->setCurrPosition(pos->p - Vector3(0, 0, sizeZ));
+	mCannon.setPosition(pos->p + Vector3(0, 0, sizeZ));
+
+	mCannon.Update(t);
 
 	propulsionTimer += t;
 }
@@ -32,6 +35,9 @@ Spaceship::keyPress(unsigned char key, const PxTransform& camera) {
 		break;
 	case 'k':
 		// rotate right
+		break;
+	case 'z':
+		mCannon.Shoot();
 		break;
 	default:
 		break;

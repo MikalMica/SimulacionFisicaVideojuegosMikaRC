@@ -32,9 +32,9 @@ TestScene::loadScene() {
 
 	pSys = new ParticleSystem(1000);
 	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::SI_EULER, 5, 1, 1, 1.0, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, { 0, 0, 1, 1 });
-	WindForceGenerator* wind = new WindForceGenerator({ 10.0, 0.0, 0.0 });
-	GravityForceGenerator* gravity = new GravityForceGenerator();
-	TornadoForceGenerator* tornado = new TornadoForceGenerator({ 0, 1, 0 }, { 0, 0, 0 }, 10);
+	wind = new WindForceGenerator({ 10.0, 0.0, 0.0 });
+	gravity = new GravityForceGenerator();
+	tornado = new TornadoForceGenerator({ 0, 1, 0 }, { 0, 0, 0 }, 10);
 
 	pSys->addGen(water);
 	//pSys->applyForceGenerator(tornado);

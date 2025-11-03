@@ -13,7 +13,7 @@ ExplosionForceGenerator::forceToApply(Particle* p) {
 bool 
 ExplosionForceGenerator::checkCondition(Particle* p) {
 
-	return (p->getPosition() - _origin).magnitude() < _radius;
+	return (p->getPosition() - _origin).magnitude() < _radius && enabled;
 }
 
 void 

@@ -2,11 +2,19 @@
 #include "Scene.h"
 
 class ParticleSystem;
+class TornadoForceGenerator;
+class GravityForceGenerator;
+class ExplosionForceGenerator;
 
 class TestScene : public Scene
 {
 	// This scene's particle system
 	ParticleSystem* pSys;
+
+	// Scene's force generators
+	TornadoForceGenerator* tornado;
+	GravityForceGenerator* gravity;
+	WindForceGenerator* wind;
 
 public:
 	TestScene() : Scene() {}
