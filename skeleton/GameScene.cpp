@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include "Spaceship.h"
 #include "Cannon.h"
+#include "ForceManager.h"
+#include "Planet.h"
 
 void 
 GameScene::Update(double t) {
@@ -33,6 +35,20 @@ GameScene::loadScene() {
 
 	mCannon->SetSimulatedVel(250);
 
+	auto plan = new Planet({ 400, 0, 400 }, { 1, 1, 0, 1 }, 100);
+	planets.push_back(plan);
+
+	// ALL SCENE OBJECTS MUST BE REGISTERED BEFORE ADDING NEW FORCEGENERATORS
+
+	// Register Spaceship's components
+	ForceManager::getSingleton()->RegisterParticle(mSpaceship);
+	ForceManager::getSingleton()->RegisterCannon(mSpaceship->getCannon());
+	ForceManager::getSingleton()->RegisterPSystem(mSpaceship->getPSystem());
+
+	// initialize the forces
+	for (auto planet : planets) {
+		planet->init();
+	}
 }
 
 void 

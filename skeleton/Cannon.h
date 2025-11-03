@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include "Particle.h"
+#include "ForceGenerator.h"
 
 class Cannon
 {
@@ -34,6 +35,7 @@ private:
 	double Smass;
 
 	std::queue<Particle*> bullets;
+	std::vector<ForceGenerator*> forces;
 
 public:
 	Cannon(Vector3 P, Vector3 V, Vector3 A, double T, double d, Particle::Mode m, double M, Vector4 colour)
@@ -55,5 +57,8 @@ public:
 	inline void setVel(PxQuat const& nVel) { Svel = nVel.rotate({0, 0, -Svel.magnitude()}); };
 
 	inline Vector3 getVel() { return Rvel; }
+
+	void applyForceGenerator(ForceGenerator* force);
+	void deleteForceGenerator(ForceGenerator* force);
 };
 

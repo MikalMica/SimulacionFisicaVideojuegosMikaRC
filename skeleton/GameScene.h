@@ -1,8 +1,10 @@
 #pragma once
 #include "Scene.h"
+#include <vector>
 
 class Spaceship;
 class Cannon;
+class Planet;
 
 class GameScene : public Scene
 {
@@ -11,6 +13,9 @@ class GameScene : public Scene
 
 	// UI Cannon
 	Cannon* mCannon;
+
+	// Planets
+	std::vector<Planet*> planets;
 
 public:
 

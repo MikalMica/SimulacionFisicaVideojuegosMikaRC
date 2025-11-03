@@ -14,6 +14,10 @@ Cannon::Update(double t) {
 			aux = nullptr;
 		}
 		else {
+			for (auto force : forces) {
+				if (force->checkCondition(aux))
+					force->forceToApply(aux);
+			}
 			aux->Integrate(t);
 			bullets.push(aux);
 		}
@@ -42,4 +46,15 @@ Cannon::SetSimulatedVel(double simulatedVel) {
 	Smass = Rmass * pow(realVel / simulatedVel, 2);
 
 	return Smass;
+}
+
+void 
+Cannon::applyForceGenerator(ForceGenerator* force) {
+
+	forces.push_back(force);
+}
+
+void 
+Cannon::deleteForceGenerator(ForceGenerator* force) {
+	// delete force
 }

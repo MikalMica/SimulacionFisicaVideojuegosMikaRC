@@ -33,7 +33,7 @@ class Spaceship : public Particle
 	double YOffset;
 
 	// Cannon of the Spaceship
-	Cannon mCannon;
+	Cannon* mCannon;
 
 public:
 	Spaceship()
@@ -48,9 +48,9 @@ public:
 		, propulsionTimer(0)
 		, ZOffset(10.0)
 		, YOffset(10.0)
-		, mCannon(pos->p + Vector3(0, 0, sizeZ), {0, 0, 100}, {0, 0, 0}, 5, 0.9, Particle::SI_EULER, 0.5, {1, 0, 1, 1})
+		, mCannon(new Cannon(pos->p + Vector3(0, 0, sizeZ), {0, 0, 100}, {0, 0, 0}, 5, 0.9, Particle::SI_EULER, 0.5, {1, 0, 1, 1}))
 	{
-		mCannon.SetSimulatedVel(150);
+		mCannon->SetSimulatedVel(150);
 
 		auto geom = PxBoxGeometry(sizeX, sizeY, sizeZ);
 		auto shape = CreateShape(geom);
@@ -61,7 +61,19 @@ public:
 		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, sizeZ), { 0, 0, -10 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 10, 10, 0 }, { 1, 0.64, 0, 1 }));
 	}
 
+	~Spaceship() 
+	{
+		delete mPSys;
+		mPSys = nullptr;
+
+		delete mCannon;
+		mCannon = nullptr;
+	}
+
 	void Update(double t);
 	void keyPress(unsigned char key, const PxTransform& camera);
+
+	inline Cannon* getCannon() { return mCannon; }
+	inline ParticleSystem* getPSystem() { return mPSys; }
 };
 

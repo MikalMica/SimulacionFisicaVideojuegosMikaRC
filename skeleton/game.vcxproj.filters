@@ -26,6 +26,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="RealGravityForceGenerator.cpp" />
+    <ClCompile Include="Planet.cpp" />
+    <ClCompile Include="ForceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -53,6 +55,8 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="RealGravityForceGenerator.h" />
+    <ClInclude Include="Planet.h" />
+    <ClInclude Include="ForceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

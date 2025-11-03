@@ -4,7 +4,7 @@
 class ParticleSystem;
 class TornadoForceGenerator;
 class GravityForceGenerator;
-class ExplosionForceGenerator;
+class WindForceGenerator;
 
 class TestScene : public Scene
 {
@@ -12,9 +12,9 @@ class TestScene : public Scene
 	ParticleSystem* pSys;
 
 	// Scene's force generators
-	TornadoForceGenerator* tornado;
-	GravityForceGenerator* gravity;
-	WindForceGenerator* wind;
+	TornadoForceGenerator* tornado = nullptr;
+	GravityForceGenerator* gravity = nullptr;
+	WindForceGenerator* wind = nullptr;
 
 public:
 	TestScene() : Scene() {}
