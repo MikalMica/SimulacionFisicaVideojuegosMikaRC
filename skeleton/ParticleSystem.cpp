@@ -43,8 +43,14 @@ ParticleSystem::removeGen(ParticleGen* gen) {
 }
 
 void 
-ParticleSystem::deleteForceGenerator(ForceGenerator* gen) {
-	// remove Force generator
+ParticleSystem::deregisterForceGenerator(ForceGenerator* gen) {
+	auto it = std::find(forces.begin(), forces.end(), gen);
+
+	if (it == forces.end()) return;
+
+	forces.erase(it);
+
+	return;
 }
 
 void 

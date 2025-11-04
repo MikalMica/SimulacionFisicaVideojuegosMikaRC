@@ -2,17 +2,21 @@
 #include "Spaceship.h"
 #include "Cannon.h"
 #include "ForceManager.h"
-#include "Planet.h"
+#include "ExplodingPlanet.h"
 
 void 
 GameScene::Update(double t) {
 
 	mSpaceship->Update(t);
 	mCannon->Update(t);
+
+	ForceManager::Instance()->Update(t);
 }
 
 void 
 GameScene::keyPress(unsigned char key, const PxTransform& camera) {
+
+	std::vector<ForceGenerator*> forces;
 
 	switch (key) {
 	case 'x':
@@ -20,6 +24,17 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		mCannon->setVel(camera.q);
 		mCannon->Shoot();
 		break;
+	case '1':
+		forces = ForceManager::Instance()->getGeneratorGroup(ForceManager::PLANET_GRAVITY);
+		for (auto force : forces) {
+			force->changeEnabled();
+		}
+		break;
+	case '2':
+		for (auto planet : planets) {
+			auto pl = static_cast<ExplodingPlanet*>(planet);
+			if (pl != nullptr) pl->Explode();
+		}
 	default:
 		break;
 	}
@@ -30,20 +45,21 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 void 
 GameScene::loadScene() {
 
+	ForceManager::Init();
+
 	mSpaceship = new Spaceship();
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
 
 	mCannon->SetSimulatedVel(250);
 
-	auto plan = new Planet({ 400, 0, 400 }, { 1, 1, 0, 1 }, 100);
-	planets.push_back(plan);
-
-	// ALL SCENE OBJECTS MUST BE REGISTERED BEFORE ADDING NEW FORCEGENERATORS
+	// Create the planets
+	//planets.push_back(new Planet({ 120, 0, 120 }, { 1, 1, 0, 1 }, 100, 6 * pow(10, 16)));
+	planets.push_back(new ExplodingPlanet({ 120, 0, 120 }, { 1, 1, 0, 1 }, 100, 6 * pow(10, 16), 100));
 
 	// Register Spaceship's components
-	ForceManager::getSingleton()->RegisterParticle(mSpaceship);
-	ForceManager::getSingleton()->RegisterCannon(mSpaceship->getCannon());
-	ForceManager::getSingleton()->RegisterPSystem(mSpaceship->getPSystem());
+	ForceManager::Instance()->RegisterParticle(mSpaceship);
+	ForceManager::Instance()->RegisterCannon(mSpaceship->getCannon());
+	ForceManager::Instance()->RegisterPSystem(mSpaceship->getPSystem());
 
 	// initialize the forces
 	for (auto planet : planets) {
@@ -59,4 +75,9 @@ GameScene::unloadScene() {
 
 	delete mCannon;
 	mCannon = nullptr;
+
+	for (auto planet : planets) {
+		delete planet;
+		planet = nullptr;
+	}
 }

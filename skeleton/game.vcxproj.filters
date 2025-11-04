@@ -28,6 +28,7 @@
     <ClCompile Include="RealGravityForceGenerator.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="ForceManager.cpp" />
+    <ClCompile Include="ExplodingPlanet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -57,6 +58,8 @@
     <ClInclude Include="RealGravityForceGenerator.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="ForceManager.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="ExplodingPlanet.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

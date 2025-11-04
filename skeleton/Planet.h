@@ -5,14 +5,15 @@
 
 class Planet : public Particle
 {
+protected:
 
 	// Radius of the planet
 	double radius;
 
 public:
 
-	Planet(Vector3 posi, Vector4 col, float r) 
-		: Particle(posi, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.0, 1000, Particle::SI_EULER, col)
+	Planet(Vector3 posi, Vector4 col, float r, double mass) 
+		: Particle(posi, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.0, mass, Particle::SI_EULER, col)
 		, radius(r)
 	{
 
@@ -24,6 +25,6 @@ public:
 	void Update(double t);
 	void keyPress(unsigned char key, const PxTransform& camera);
 
-	void init();
+	virtual void init();
 };
 

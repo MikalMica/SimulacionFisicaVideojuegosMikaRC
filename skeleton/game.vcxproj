@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="ExplodingPlanet.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="ForceManager.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="ExplodingPlanet.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceManager.h" />
@@ -296,6 +298,7 @@
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TornadoForceGenerator.h" />

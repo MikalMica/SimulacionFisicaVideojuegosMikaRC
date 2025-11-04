@@ -29,7 +29,7 @@ public:
 	inline void setGenerator(int index) { genIndex = index; }
 
 	inline void applyForceGenerator(ForceGenerator* gen) { forces.push_back(gen); }
-	void deleteForceGenerator(ForceGenerator* gen);
+	void deregisterForceGenerator(ForceGenerator* gen);
 
 	inline void setCurrPosition(Vector3 nPos) { generators[genIndex]->setPosition(nPos); }
 	inline Vector3 getCurrPosition() { return generators[genIndex]->getPosition(); }

@@ -16,7 +16,7 @@ Cannon::Update(double t) {
 		else {
 			for (auto force : forces) {
 				if (force->checkCondition(aux))
-					force->forceToApply(aux);
+					aux->addForce(force->forceToApply(aux));
 			}
 			aux->Integrate(t);
 			bullets.push(aux);
@@ -56,5 +56,12 @@ Cannon::applyForceGenerator(ForceGenerator* force) {
 
 void 
 Cannon::deleteForceGenerator(ForceGenerator* force) {
-	// delete force
+
+	auto it = std::find(forces.begin(), forces.end(), force);
+
+	if (it == forces.end()) return;
+
+	forces.erase(it);
+
+	return;
 }
