@@ -8,7 +8,7 @@ class Planet : public Particle
 protected:
 
 	// Radius of the planet
-	double radius;
+	float radius;
 
 public:
 

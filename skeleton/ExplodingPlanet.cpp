@@ -21,7 +21,7 @@ ExplodingPlanet::Explode() {
 	explosion->Update(0.2);
 	explosion->ChangeParticleGeneration();
 	
-	ForceManager::Instance()->RegisterPSystem(explosion);
+	ForceManager::Instance()->RegisterPSystem(explosion, ForceManager::EXPLOSION_PARTS);
 }
 
 void 

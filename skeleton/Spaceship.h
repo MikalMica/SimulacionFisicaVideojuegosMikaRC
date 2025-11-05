@@ -35,6 +35,16 @@ class Spaceship : public Particle
 	// Cannon of the Spaceship
 	Cannon* mCannon;
 
+	// Angle of the spaceship
+	double angle;
+
+	// Original velocity of the pSystem
+	Vector3 oVel;
+
+	// Offset of the camera
+	float zOffset;
+	float yOffset;
+
 public:
 	Spaceship()
 		: Particle({ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 100.0, Particle::SI_EULER, { 43.0 / 255, 76.0 / 255, 142.0 / 255, 1.0 })
@@ -48,6 +58,9 @@ public:
 		, propulsionTimer(0)
 		, ZOffset(10.0)
 		, YOffset(10.0)
+		, angle(0.0)
+		, zOffset(70.0)
+		, yOffset(50.0)
 		, mCannon(new Cannon(pos->p + Vector3(0, 0, sizeZ), {0, 0, 100}, {0, 0, 0}, 5, 0.9, Particle::SI_EULER, 0.5, {1, 0, 1, 1}))
 	{
 		mCannon->SetSimulatedVel(150);
@@ -58,7 +71,8 @@ public:
 		item = new RenderItem(shape, pos, colour);
 
 		mPSys = new ParticleSystem(1000);
-		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, sizeZ), { 0, 0, -10 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 10, 10, 0 }, { 1, 0.64, 0, 1 }));
+		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, sizeZ), { 0, 0, -20 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 10, 10, 10 }, { 1, 0.64, 0, 1 }));
+		oVel = mPSys->getCurrVelocity();
 	}
 
 	~Spaceship() 

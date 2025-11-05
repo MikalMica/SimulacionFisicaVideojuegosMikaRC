@@ -4,12 +4,15 @@
 #include "ForceManager.h"
 #include "Planet.h"
 #include "ExplodingPlanet.h"
+#include "RingedPlanet.h"
+#include "Nebula.h"
 
 void 
 GameScene::Update(double t) {
 
 	mSpaceship->Update(t);
 	mCannon->Update(t);
+	mNebula->Update(t);
 	
 	for (auto planet : planets) {
 		if (planet->hasToDie()) {
@@ -39,9 +42,8 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		}
 		break;
 	case '2':
-		for (auto planet : planets) {
-			auto pl = static_cast<ExplodingPlanet*>(planet);
-			if (pl != nullptr) pl->Explode();
+		for (auto planet : ePlanets) {
+			planet->Explode();
 		}
 	default:
 		break;
@@ -57,17 +59,26 @@ GameScene::loadScene() {
 
 	mSpaceship = new Spaceship();
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
+	mNebula = new Nebula({ 400, 0, 400 });
 
 	mCannon->SetSimulatedVel(250);
 
 	// Create the planets
-	//planets.push_back(new Planet({ 120, 0, 120 }, { 1, 1, 0, 1 }, 100, 6 * pow(10, 16)));
-	planets.push_back(new ExplodingPlanet({ 120, 0, 120 }, { 1, 1, 0, 1 }, 100, 6 * pow(10, 16), 100));
+	planets.push_back(new Planet({ 1200, 0, 500 }, { 1, 0, 1, 1 }, 100, 6 * pow(10, 16)));
+	planets.push_back(new Planet({ 0, 200, 500 }, { 1, 0.5, 0.5, 1 }, 100, 6 * pow(10, 16)));
+	planets.push_back(new Planet({ -800, -400, 0 }, { 1, 0.7, 0.7, 1 }, 100, 6 * pow(10, 16)));
+	planets.push_back(new Planet({ -300, 0, -500 }, { 1, 1, 1, 1 }, 100, 6 * pow(10, 16)));;
+	planets.push_back(new RingedPlanet({ 500, 0, 200 }, { 0, 0, 0, 1 }, 100, 6 * pow(10, 16)));
+
+	// Create aside the Exploding planets
+	auto exp = new ExplodingPlanet({ 300, 0, 700 }, { 1, 0, 0, 1 }, 100, 6 * pow(10, 16), 100);
+	planets.push_back(exp);
+	ePlanets.push_back(exp);
 
 	// Register Spaceship's components
-	ForceManager::Instance()->RegisterParticle(mSpaceship);
-	ForceManager::Instance()->RegisterCannon(mSpaceship->getCannon());
-	ForceManager::Instance()->RegisterPSystem(mSpaceship->getPSystem());
+	ForceManager::Instance()->RegisterParticle(mSpaceship, ForceManager::SPACESHIP);
+	ForceManager::Instance()->RegisterCannon(mSpaceship->getCannon(), ForceManager::SPACESHIP);
+	ForceManager::Instance()->RegisterPSystem(mSpaceship->getPSystem(), ForceManager::SPACESHIP);
 
 	// initialize the forces
 	for (auto planet : planets) {
@@ -83,6 +94,11 @@ GameScene::unloadScene() {
 
 	delete mCannon;
 	mCannon = nullptr;
+
+	delete mNebula;
+	mNebula = nullptr;
+
+	ePlanets.clear();
 
 	for (auto planet : planets) {
 		delete planet;

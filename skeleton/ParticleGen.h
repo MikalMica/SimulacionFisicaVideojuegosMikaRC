@@ -68,5 +68,8 @@ public:
 
 	inline void setPosition(Vector3 nPos) { pos = nPos; }
 	inline Vector3 getPosition() { return pos; }
+
+	inline void setVelocity(Vector3 nVel) { vel = nVel;}
+	inline Vector3 getVelocity() { return vel; }
 };
 

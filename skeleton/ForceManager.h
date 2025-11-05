@@ -15,9 +15,9 @@ class ForceManager : public Singleton<ForceManager>
 	std::vector<std::pair<ForceGenerator*, int>> forces;
 
 	// Vectors containing everything that needs to be affected by the forces
-	std::queue<Particle*> particles;
-	std::vector<ParticleSystem*> systems;
-	std::vector<Cannon*> cannons;
+	std::queue<std::pair<Particle*, int>> particles;
+	std::vector<std::pair<ParticleSystem*, int>> systems;
+	std::vector<std::pair<Cannon*, int>> cannons;
 
 	
 	
@@ -41,7 +41,17 @@ public:
 
 	enum FORCE_GRP {
 		PLANET_GRAVITY,
-		PLANET_EXPLOSION
+		PLANET_EXPLOSION,
+		PLANET_RING,
+		FORCE_SIZE // C++ truco
+	};
+
+	enum INTER_GRP {
+		SPACESHIP,
+		EXPLOSION_PARTS,
+		TORNADO_PARTS,
+		UI,
+		INTER_SIZE // C++ truco
 	};
 
 	// returns the index in the generators vector
@@ -49,11 +59,24 @@ public:
 	bool DeleteForceGenerator(std::pair<ForceGenerator*, int> gen);
 	void Update(double t);
 
-	inline void RegisterParticle(Particle* p) { particles.push(p); }
-	void RegisterPSystem(ParticleSystem* sys);
-	void RegisterCannon(Cannon* can);
+	inline void RegisterParticle(Particle* p, INTER_GRP grp) { particles.push({ p, grp }); }
+	void RegisterPSystem(ParticleSystem* sys, INTER_GRP grp);
+	void RegisterCannon(Cannon* can, INTER_GRP grp);
 
 	inline std::pair<ForceGenerator*, int> getGeneratorAt(int i) { return forces[i]; }
 	std::vector<ForceGenerator*> getGeneratorGroup(FORCE_GRP group);
+
+private:
+
+	// Matrix to set whic systems collide with each force
+
+			
+	std::vector<std::vector<bool>> collides = { 
+		// GRAVITY, EXPLOSION, RING
+		{ true, true, false }, // SPACESHIP
+		{ true, true, false }, // EXPLOSION PARTICLES
+		{ true, true, true }, // TORNADO PARTS
+		{ false, false, false } // UI
+	};
 };
 

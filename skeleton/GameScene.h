@@ -5,6 +5,8 @@
 class Spaceship;
 class Cannon;
 class Planet;
+class ExplodingPlanet;
+class Nebula;
 
 class GameScene : public Scene
 {
@@ -17,6 +19,12 @@ class GameScene : public Scene
 	// Planets
 	std::vector<Planet*> planets;
 
+	// Exploding Planets (also referenced in planets)
+	std::vector<ExplodingPlanet*> ePlanets;
+
+	// Nebula
+	Nebula* mNebula;
+
 	// method to remove dead planets
 	bool killPlanet(Planet* planet);
 
@@ -26,6 +34,7 @@ public:
 		: Scene()
 		, mSpaceship(nullptr)
 		, mCannon(nullptr)
+		, mNebula(nullptr)
 	{}
 
 	void Update(double t) override;

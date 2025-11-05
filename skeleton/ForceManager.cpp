@@ -6,34 +6,38 @@ ForceManager::AddForceGenerator(ForceGenerator* gen, FORCE_GRP group) {
 	forces.push_back({ gen, group });
 
 	for (auto cannon : cannons) {
-		cannon->applyForceGenerator(gen);
+		if (collides[cannon.second][group])
+			cannon.first->applyForceGenerator(gen);
 	}
 
 	for (auto system : systems) {
-		system->applyForceGenerator(gen);
+		if (collides[system.second][group])
+			system.first->applyForceGenerator(gen);
 	}
 
 	return forces.size() - 1;
 }
 
 void 
-ForceManager::RegisterPSystem(ParticleSystem* sys) {
+ForceManager::RegisterPSystem(ParticleSystem* sys, INTER_GRP grp) {
 
 	for (auto force : forces) {
-		sys->applyForceGenerator(force.first);
+		if(collides[grp][force.second])
+			sys->applyForceGenerator(force.first);
 	}
 
-	systems.push_back(sys);
+	systems.push_back({ sys, grp });
 }
 
 void 
-ForceManager::RegisterCannon(Cannon* can) {
+ForceManager::RegisterCannon(Cannon* can, INTER_GRP grp) {
 	
 	for (auto force : forces) {
-		can->applyForceGenerator(force.first);
+		if(collides[grp][force.second])
+			can->applyForceGenerator(force.first);
 	}
 	
-	cannons.push_back(can); 
+	cannons.push_back({ can, grp });
 }
 
 void 
@@ -46,13 +50,13 @@ ForceManager::Update(double t) {
 			auto p = particles.front();
 			particles.pop();
 
-			if (p->hasToDie()) {
-				delete p;
-				p = nullptr;
+			if (p.first->hasToDie()) {
+				delete p.first;
+				p.first = nullptr;
 			}
 			else {
-				if (force.first->checkCondition(p))
-					p->addForce(force.first->forceToApply(p));
+				if (collides[p.second][force.second] && force.first->checkCondition(p.first))
+					p.first->addForce(force.first->forceToApply(p.first));
 				particles.push(p);
 			}
 		}
@@ -87,11 +91,13 @@ ForceManager::DeleteForceGenerator(std::pair<ForceGenerator*, int> gen) {
 	auto aux = *it;
 
 	for (auto pSys : systems) {
-		pSys->deregisterForceGenerator(aux.first);
+		if (collides[pSys.second][gen.second])
+			pSys.first->deregisterForceGenerator(aux.first);
 	}
 
 	for (auto cannon : cannons) {
-		cannon->deleteForceGenerator(aux.first);
+		if (collides[cannon.second][gen.second])
+			cannon.first->deleteForceGenerator(aux.first);
 	}
 
 	forces.erase(it);

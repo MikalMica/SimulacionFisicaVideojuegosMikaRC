@@ -29,6 +29,8 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="ForceManager.cpp" />
     <ClCompile Include="ExplodingPlanet.cpp" />
+    <ClCompile Include="RingedPlanet.cpp" />
+    <ClCompile Include="Nebula.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -60,6 +62,9 @@
     <ClInclude Include="ForceManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="ExplodingPlanet.h" />
+    <ClInclude Include="RingedPlanet.h" />
+    <ClInclude Include="Nebula.h" />
+    <ClInclude Include="checkML.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

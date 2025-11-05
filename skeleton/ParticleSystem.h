@@ -35,6 +35,9 @@ public:
 	inline void setCurrPosition(Vector3 nPos) { generators[genIndex]->setPosition(nPos); }
 	inline Vector3 getCurrPosition() { return generators[genIndex]->getPosition(); }
 
+	inline void setCurrVelocity(Vector3 nVel) { generators[genIndex]->setVelocity(nVel); }
+	inline Vector3 getCurrVelocity() { return generators[genIndex]->getVelocity(); }
+
 	void DestroyAllParticles();
 	inline void ChangeParticleGeneration() { generate = !generate; }
 

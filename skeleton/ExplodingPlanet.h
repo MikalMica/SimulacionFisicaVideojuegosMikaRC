@@ -9,7 +9,7 @@ class ExplodingPlanet : public Planet
 	float _K;
 
 	// index of the RealGravityForceGenerator of this planet to deactivate it once it exploded
-	int gIndex = -1;
+	int gIndex;
 
 	// Particle system only updated when the planet explode
 	ParticleSystem* explosion = nullptr;
@@ -22,6 +22,7 @@ public:
 	ExplodingPlanet(Vector3 posi, Vector4 col, float r, double mass, float k)
 		: Planet(posi, col, r, mass)
 		, _K(k)
+		, gIndex(-1)
 	{ }
 
 	void Explode();
