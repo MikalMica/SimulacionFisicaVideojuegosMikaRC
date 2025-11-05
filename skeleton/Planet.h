@@ -17,12 +17,14 @@ public:
 		, radius(r)
 	{
 
+		item->release();
+
 		auto geom = PxSphereGeometry(r);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, pos, colour);
 	}
 
-	void Update(double t);
+	virtual void Update(double t);
 	void keyPress(unsigned char key, const PxTransform& camera);
 
 	virtual void init();

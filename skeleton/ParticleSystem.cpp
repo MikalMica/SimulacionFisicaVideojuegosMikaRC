@@ -6,11 +6,13 @@ void
 ParticleSystem::Update(double t) {
 	auto partics = generators[genIndex]->generateP();
 
-	for (auto p : partics) { 
-		if (particles.size() < maxParticles)
-			particles.push(p);
-		else
-			delete p; p = nullptr;
+	if (generate) {
+		for (auto p : partics) {
+			if (particles.size() < maxParticles)
+				particles.push(p);
+			else
+				delete p; p = nullptr;
+		}
 	}
 
 	int size = particles.size();

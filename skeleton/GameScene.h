@@ -17,6 +17,9 @@ class GameScene : public Scene
 	// Planets
 	std::vector<Planet*> planets;
 
+	// method to remove dead planets
+	bool killPlanet(Planet* planet);
+
 public:
 
 	GameScene()

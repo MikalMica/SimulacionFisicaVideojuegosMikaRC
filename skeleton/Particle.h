@@ -49,7 +49,7 @@ public:
 		item = new RenderItem(shape, pos, colour);
 	}
 
-	~Particle() { DeregisterRenderItem(item); item = nullptr; pos = nullptr; }
+	~Particle() { item->release(); pos = nullptr; }
 
 
 	void Integrate(double t);

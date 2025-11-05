@@ -54,7 +54,7 @@ public:
 
 		auto geom = PxBoxGeometry(sizeX, sizeY, sizeZ);
 		auto shape = CreateShape(geom);
-		DeregisterRenderItem(item);
+		item->release();
 		item = new RenderItem(shape, pos, colour);
 
 		mPSys = new ParticleSystem(1000);
@@ -63,6 +63,8 @@ public:
 
 	~Spaceship() 
 	{
+		item->release();
+
 		delete mPSys;
 		mPSys = nullptr;
 

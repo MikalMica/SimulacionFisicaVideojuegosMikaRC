@@ -2,6 +2,7 @@
 #include "Spaceship.h"
 #include "Cannon.h"
 #include "ForceManager.h"
+#include "Planet.h"
 #include "ExplodingPlanet.h"
 
 void 
@@ -9,6 +10,13 @@ GameScene::Update(double t) {
 
 	mSpaceship->Update(t);
 	mCannon->Update(t);
+	
+	for (auto planet : planets) {
+		if (planet->hasToDie()) {
+			killPlanet(planet);
+		}
+		else planet->Update(t);
+	}
 
 	ForceManager::Instance()->Update(t);
 }
@@ -80,4 +88,20 @@ GameScene::unloadScene() {
 		delete planet;
 		planet = nullptr;
 	}
+}
+
+bool
+GameScene::killPlanet(Planet* planet) {
+	auto it = std::find(planets.begin(), planets.end(), planet);
+
+	if (it == planets.end()) return false;
+
+	auto aux = *it;
+
+	planets.erase(it);
+
+	delete planet;
+	planet = nullptr;
+
+	return true;
 }

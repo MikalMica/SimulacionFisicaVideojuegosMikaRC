@@ -1,5 +1,6 @@
 #pragma once
 #include "Planet.h"
+#include "ParticleSystem.h"
 
 class ExplodingPlanet : public Planet
 {
@@ -10,7 +11,11 @@ class ExplodingPlanet : public Planet
 	// index of the RealGravityForceGenerator of this planet to deactivate it once it exploded
 	int gIndex = -1;
 
-	// Add a Particle system which only updates once the planet exploded
+	// Particle system only updated when the planet explode
+	ParticleSystem* explosion = nullptr;
+
+	// timer to delete this after it exploded
+	double destroyTimer = 0;
 
 public:
 
@@ -21,5 +26,6 @@ public:
 
 	void Explode();
 	void init() override;
+	void Update(double t) override;
 };
 

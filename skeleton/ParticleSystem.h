@@ -13,6 +13,7 @@ class ParticleSystem
 	int maxParticles;
 	int genIndex = 0;
 	int forceIndex = 0;
+	bool generate = true;
 public:
 	ParticleSystem(int max) : maxParticles(max) {}
 	ParticleSystem(std::vector<ParticleGen*> gens, int max) : maxParticles(max), generators(gens) {}
@@ -35,6 +36,7 @@ public:
 	inline Vector3 getCurrPosition() { return generators[genIndex]->getPosition(); }
 
 	void DestroyAllParticles();
+	inline void ChangeParticleGeneration() { generate = !generate; }
 
 };
 
