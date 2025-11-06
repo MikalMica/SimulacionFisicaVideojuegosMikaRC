@@ -45,6 +45,11 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		for (auto planet : ePlanets) {
 			planet->Explode();
 		}
+	case '3':
+		forces = ForceManager::Instance()->getGeneratorGroup(ForceManager::PLANET_RING);
+		for (auto force : forces) {
+			force->changeEnabled();
+		}
 	default:
 		break;
 	}
