@@ -41,7 +41,16 @@ ParticleSystem::Update(double t) {
 
 void
 ParticleSystem::removeGen(ParticleGen* gen) {
-	// remove ParticleGen
+	auto it = std::find(generators.begin(), generators.end(), gen);
+
+	if (it == generators.end()) return;
+
+	generators.erase(it);
+
+	delete gen;
+	gen = nullptr;
+
+	return;
 }
 
 void 
