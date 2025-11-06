@@ -32,7 +32,7 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 	switch (key) {
 	case 'x':
 		mCannon->setPosition(camera.p);
-		mCannon->setVel(camera.q);
+		mCannon->setVel(camera.q, true);
 		mCannon->Shoot();
 		break;
 	case '1':

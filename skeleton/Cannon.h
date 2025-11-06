@@ -54,7 +54,7 @@ public:
 	inline void setPosition(Vector3 const& nPos) { iPos = nPos; };
 	inline Vector3 getPosition() { return iPos; }
 	inline void setSpeed(Vector3 const& nVel) { Rvel = nVel; };
-	inline void setVel(PxQuat const& nVel) { Svel = nVel.rotate({0, 0, Svel.magnitude()}); };
+	inline void setVel(PxQuat const& nVel, bool inverse = false) { int inv = inverse ? -1 : 1; Svel = nVel.rotate({ 0, 0, Svel.magnitude()*inv }); };
 
 	inline Vector3 getVel() { return Rvel; }
 
