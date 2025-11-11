@@ -1,50 +1,56 @@
 #include "TestScene.h"
 #include "ParticleSystem.h"
-#include "GaussianGen.h"
-#include "TornadoForceGenerator.h"
+#include "FloatingForceGenerator.h"
 #include "GravityForceGenerator.h"
-#include "ExplosionForceGenerator.h"
+#include "Sea.h"
+#include <iostream>
 
 void 
 TestScene::Update(double t) {
-
-	pSys->Update(t);
+	ForceManager::Instance()->Update(t);
 }
 
 void
 TestScene::keyPress(unsigned char key, const PxTransform& camera) {
 
-	auto explosion = new ExplosionForceGenerator(10, 100, 1, { 0, 0, 0 });
 	switch (toupper(key))
 	{
 	case '1':
-		pSys->applyForceGenerator(explosion);
+		pTest->addForce({ 0, -5, 0 });
+		break;
+	case '2':
+		pTest->setMass(1);
+		//static_cast<SpringForceGenerator*>(ForceManager::Instance()->getGeneratorAt(springIndex).first)->setK(1);
+		break;
+	case '3':
+		pTest->setMass(15);
+		//static_cast<SpringForceGenerator*>(ForceManager::Instance()->getGeneratorAt(springIndex).first)->setK(5);
+		break;
+	case '4':
+		pTest->setMass(100);
+		//static_cast<SpringForceGenerator*>(ForceManager::Instance()->getGeneratorAt(springIndex).first)->setK(10);
 		break;
 	default:
-		delete explosion;
 		break;
 	}
 }
 
-
 void 
 TestScene::loadScene() {
+	ForceManager::Init();
+	sea = new Sea({ 0, -10, 0 });
+	ForceManager::Instance()->AddForceGenerator(new FloatingForceGenerator(-10, 2, 10, 10), ForceManager::LIQUID);
+	ForceManager::Instance()->AddForceGenerator(new GravityForceGenerator(), ForceManager::LIQUID);
 
-	pSys = new ParticleSystem(1000);
-	GaussianGen* water = new GaussianGen({ 0, 0, 0 }, { 0, 0, 0 }, 7, 500, 0.6, 0.9, Particle::SI_EULER, 5, 1, 1, 1.0, { 0.5, 0.5, 0.5 }, { 2.5, 0, 2.5 }, { 0, 0, 1, 1 });
-	wind = new WindForceGenerator({ 10.0, 0.0, 0.0 });
-	gravity = new GravityForceGenerator();
-	tornado = new TornadoForceGenerator({ 0, 1, 0 }, { 0, 0, 0 }, 10);
-
-	pSys->addGen(water);
-	//pSys->applyForceGenerator(tornado);
-	//pSys->applyForceGenerator(gravity);
-	//pSys->applyForceGenerator(wind);
+	pTest = new Particle({ 0, -5, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 20, Particle::SI_EULER, { 1, 0, 0, 1 });
+	/*pTest2 = new Particle({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, -1, 0.9, 0.5, Particle::SI_EULER, {1, 0, 0, 1});
+	springIndex = ForceManager::Instance()->AddForceGenerator(new ElasticRopeForceGenerator(10, 5, pTest, pTest2), ForceManager::SPRING);*/
+	ForceManager::Instance()->RegisterParticle(pTest, ForceManager::TORNADO_PARTS);
+	/*ForceManager::Instance()->RegisterParticle(pTest2, ForceManager::TORNADO_PARTS); */
 }
 
 void 
 TestScene::unloadScene() {
-
-	delete pSys;
-	pSys = nullptr;
+	delete pTest; pTest = nullptr;
+	/*delete pTest2; pTest2 = nullptr; */
 }

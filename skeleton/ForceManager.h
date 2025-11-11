@@ -43,6 +43,8 @@ public:
 		PLANET_GRAVITY,
 		PLANET_EXPLOSION,
 		PLANET_RING,
+		SPRING,
+		LIQUID,
 		FORCE_SIZE // C++ truco
 	};
 
@@ -72,11 +74,11 @@ private:
 
 			
 	std::vector<std::vector<bool>> collides = { 
-		// GRAVITY, EXPLOSION, RING
-		{ true, true, false }, // SPACESHIP
-		{ true, true, false }, // EXPLOSION PARTICLES
-		{ true, true, true }, // TORNADO PARTS
-		{ false, false, false } // UI
+		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID
+		{ true, true, false, true, true }, // SPACESHIP
+		{ true, true, false, true, true }, // EXPLOSION PARTICLES
+		{ true, true, true, true, true }, // TORNADO PARTS
+		{ false, false, false, false, false } // UI
 	};
 };
 

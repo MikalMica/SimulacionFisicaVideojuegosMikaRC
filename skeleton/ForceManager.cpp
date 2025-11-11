@@ -57,6 +57,7 @@ ForceManager::Update(double t) {
 			else {
 				if (collides[p.second][force.second] && force.first->checkCondition(p.first))
 					p.first->addForce(force.first->forceToApply(p.first));
+				p.first->Integrate(t);
 				particles.push(p);
 			}
 		}

@@ -1,21 +1,17 @@
 #pragma once
 #include "Scene.h"
+#include "ElasticRopeForceGenerator.h"
+#include "ForceManager.h"
 
-class ParticleSystem;
-class TornadoForceGenerator;
-class GravityForceGenerator;
-class WindForceGenerator;
+class Sea;
 
 class TestScene : public Scene
 {
-	// This scene's particle system
-	ParticleSystem* pSys;
+	Particle* pTest;
+	Particle* pTest2;
+	Sea* sea;
 
-	// Scene's force generators
-	TornadoForceGenerator* tornado = nullptr;
-	GravityForceGenerator* gravity = nullptr;
-	WindForceGenerator* wind = nullptr;
-
+	int springIndex = 0;
 public:
 	TestScene() : Scene() {}
 

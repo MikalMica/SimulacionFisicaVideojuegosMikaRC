@@ -253,10 +253,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Anchor.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="ElasticRopeForceGenerator.cpp" />
     <ClCompile Include="ExplodingPlanet.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
+    <ClCompile Include="FloatingForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="ForceManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -274,19 +277,24 @@
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="RingedPlanet.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Sea.cpp" />
     <ClCompile Include="Spaceship.cpp" />
+    <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Anchor.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="ElasticRopeForceGenerator.h" />
     <ClInclude Include="ExplodingPlanet.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
+    <ClInclude Include="FloatingForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceManager.h" />
     <ClInclude Include="GameScene.h" />
@@ -303,8 +311,10 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="RingedPlanet.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Sea.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Spaceship.h" />
+    <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TornadoForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />

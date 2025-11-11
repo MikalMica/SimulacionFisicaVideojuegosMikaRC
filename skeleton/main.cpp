@@ -66,7 +66,7 @@ void initPhysics(bool interactive)
 	scenes.push_back(new TestScene()); // 0 | Scene for testing and development
 	scenes.push_back(new GameScene()); // 1 | Scene for the game itself
 
-	currentScene = 1;
+	currentScene = 0;
 	scenes[currentScene]->loadScene();
 
 	}
