@@ -39,7 +39,7 @@ void
 TestScene::loadScene() {
 	ForceManager::Init();
 	sea = new Sea({ 0, -10, 0 });
-	ForceManager::Instance()->AddForceGenerator(new FloatingForceGenerator(-10, 2, 10, 10), ForceManager::LIQUID);
+	ForceManager::Instance()->AddForceGenerator(new FloatingForceGenerator(-10, 2, 1, 1000), ForceManager::LIQUID);
 	ForceManager::Instance()->AddForceGenerator(new GravityForceGenerator(), ForceManager::LIQUID);
 
 	pTest = new Particle({ 0, -5, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 20, Particle::SI_EULER, { 1, 0, 0, 1 });
