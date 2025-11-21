@@ -30,8 +30,8 @@ class GameScene : public Scene
 
 public:
 
-	GameScene()
-		: Scene()
+	GameScene(PxPhysics* gPh, PxScene* sc)
+		: Scene(gPh, sc)
 		, mSpaceship(nullptr)
 		, mCannon(nullptr)
 		, mNebula(nullptr)

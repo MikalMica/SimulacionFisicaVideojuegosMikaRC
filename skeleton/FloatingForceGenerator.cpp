@@ -1,5 +1,6 @@
 #include "FloatingForceGenerator.h"
 #include "Particle.h"
+#include <iostream>
 
 Vector3 
 FloatingForceGenerator::forceToApply(Particle* p) {

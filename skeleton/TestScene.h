@@ -13,7 +13,7 @@ class TestScene : public Scene
 
 	int springIndex = 0;
 public:
-	TestScene() : Scene() {}
+	TestScene(PxPhysics* gPh, PxScene* sc) : Scene(gPh, sc) {}
 
 	void Update(double t) override;
 	void keyPress(unsigned char key, const PxTransform& camera) override;

@@ -42,7 +42,7 @@ TestScene::loadScene() {
 	ForceManager::Instance()->AddForceGenerator(new FloatingForceGenerator(-10, 2, 1, 1000), ForceManager::LIQUID);
 	ForceManager::Instance()->AddForceGenerator(new GravityForceGenerator(), ForceManager::LIQUID);
 
-	pTest = new Particle({ 0, -5, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 20, Particle::SI_EULER, { 1, 0, 0, 1 });
+	pTest = new Particle({ 0, -5, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 500, Particle::SI_EULER, { 1, 0, 0, 1 });
 	/*pTest2 = new Particle({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, -1, 0.9, 0.5, Particle::SI_EULER, {1, 0, 0, 1});
 	springIndex = ForceManager::Instance()->AddForceGenerator(new ElasticRopeForceGenerator(10, 5, pTest, pTest2), ForceManager::SPRING);*/
 	ForceManager::Instance()->RegisterParticle(pTest, ForceManager::TORNADO_PARTS);

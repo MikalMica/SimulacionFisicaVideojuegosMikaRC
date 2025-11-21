@@ -63,8 +63,8 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	scenes.push_back(new TestScene()); // 0 | Scene for testing and development
-	scenes.push_back(new GameScene()); // 1 | Scene for the game itself
+	scenes.push_back(new TestScene(gPhysics, gScene)); // 0 | Scene for testing and development
+	scenes.push_back(new GameScene(gPhysics, gScene)); // 1 | Scene for the game itself
 
 	currentScene = 0;
 	scenes[currentScene]->loadScene();
