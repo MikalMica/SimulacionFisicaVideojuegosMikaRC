@@ -36,6 +36,11 @@
     <ClCompile Include="ElasticRopeForceGenerator.cpp" />
     <ClCompile Include="FloatingForceGenerator.cpp" />
     <ClCompile Include="Sea.cpp" />
+    <ClCompile Include="DynamicSolid.cpp" />
+    <ClCompile Include="Solid.cpp" />
+    <ClCompile Include="StaticSolid.cpp" />
+    <ClCompile Include="SolidPSystem.cpp" />
+    <ClCompile Include="SolidGen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -75,6 +80,11 @@
     <ClInclude Include="ElasticRopeForceGenerator.h" />
     <ClInclude Include="FloatingForceGenerator.h" />
     <ClInclude Include="Sea.h" />
+    <ClInclude Include="DynamicSolid.h" />
+    <ClInclude Include="Solid.h" />
+    <ClInclude Include="StaticSolid.h" />
+    <ClInclude Include="SolidPSystem.h" />
+    <ClInclude Include="SolidGen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

@@ -3,15 +3,17 @@
 
 class DynamicSolid : public Solid
 {
+
+	PxRigidDynamic* dBody = nullptr;
+
 public:
 
-	DynamicSolid() {
+	DynamicSolid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, float density)
+	: Solid(actor, boxSize, material){
 
-		// Hacer cosas con lo que rescatamos de Solid especifico para dynamic
+		dBody = static_cast<PxRigidDynamic*>(actor);
 
-		PxRigidBodyExt::updateMassAndInertia(*body, density);
-
-		item = new RenderItem(shape, body, { 1, 0, 0, 1 });
+		PxRigidBodyExt::updateMassAndInertia(*dBody, density);
 	}
 };
 

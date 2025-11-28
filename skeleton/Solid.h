@@ -13,23 +13,23 @@ using namespace physx;
 
 class Solid
 {
-protected:
 
 	RenderItem* item = nullptr;
-	PxRigidActor* mBody = nullptr;
 
-public:
-	Solid(PxRigidActor* body, Vector3 const& boxSize, PxMaterial* material, float density)
-		: mBody(body)
+protected:
+
+	Solid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material)
 	{
 		auto geo = PxBoxGeometry(boxSize.x, boxSize.y, boxSize.z);
 		auto shape = CreateShape(geo, material);
-		body->attachShape(*shape);
+		actor->attachShape(*shape);
 
-		// Arreglarlo para hacer todo lo posible antes de tener q cargar otra cosa
+		item = new RenderItem(shape, actor, { 0.4, 0.1, 0.9, 1 });
 	}
-	~Solid() { item->release(); mBody = nullptr; }
 
-	//PxRigidBody* getBody() { return mBody; }
+public:
+
+	~Solid() { }
+
 };
 
