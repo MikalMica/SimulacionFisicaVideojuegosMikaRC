@@ -20,6 +20,7 @@ public:
 	}
 
 	inline void addForce(Vector3 const& force) { dBody->addForce(force);}
+	inline void addTorque(Vector3 const& torque) { dBody->addTorque(torque); }
 
 	inline bool isFarFromOrigin(double distance) { if (((dBody->getGlobalPose().p - originalPos).magnitude() > distance)) { dead = true; return dead; } return false; }
 
@@ -28,8 +29,9 @@ public:
 
 	float getMass() { return dBody->getMass(); }
 
-	PxActor* getActor() override { return dBody; }
+	PxActor* getActor() override { return dBody;}
 	Vector3 getPosition() override { return dBody->getGlobalPose().p; }
 
+	void Update(double t) override { dBody->clearForce(); }
 };
 

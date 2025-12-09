@@ -32,7 +32,7 @@ public:
 
 	~Solid() { item->release(); }
 
-	void Update(double t) {}
+	virtual void Update(double t) {}
 	bool hasToDie() { return dead; }
 	virtual Vector3 getPosition() = 0;
 	virtual PxActor* getActor() = 0;
