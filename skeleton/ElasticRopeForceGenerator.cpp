@@ -11,3 +11,15 @@ ElasticRopeForceGenerator::checkCondition(Particle* p) {
 
 	return diff.magnitude() > length;
 }
+
+bool
+ElasticRopeForceGenerator::checkCondition(DynamicSolid* s) {
+	Vector3 diff;
+
+	if (s == s1)
+		diff = p2->getPosition() - s1->getPosition();
+	else
+		diff = p1->getPosition() - s2->getPosition();
+
+	return diff.magnitude() > length;
+}

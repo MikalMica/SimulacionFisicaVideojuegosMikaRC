@@ -2,6 +2,7 @@
 #include <PxPhysicsAPI.h>
 #include "core.hpp"
 
+class Solid;
 
 using namespace physx;
 
@@ -22,6 +23,7 @@ public:
 	virtual void loadScene() = 0;
 	virtual void unloadScene() = 0;
 
-	void addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos);
+	Solid* addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos);
+	void removeSolid(Solid* solid);
 };
 

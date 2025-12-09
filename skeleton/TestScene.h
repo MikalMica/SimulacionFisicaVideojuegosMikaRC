@@ -3,13 +3,11 @@
 #include "ElasticRopeForceGenerator.h"
 #include "ForceManager.h"
 
-class Sea;
+class SolidPSystem;
 
 class TestScene : public Scene
 {
-	Particle* pTest;
-	Particle* pTest2;
-	Sea* sea;
+	SolidPSystem* testSys = nullptr;
 
 	int springIndex = 0;
 public:

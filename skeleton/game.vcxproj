@@ -265,6 +265,7 @@
     <ClCompile Include="ForceManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GaussianGen.cpp" />
+    <ClCompile Include="GaussianSolidGen.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nebula.cpp" />
@@ -305,6 +306,7 @@
     <ClInclude Include="ForceManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GaussianGen.h" />
+    <ClInclude Include="GaussianSolidGen.h" />
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="Nebula.h" />
     <ClInclude Include="Particle.h" />

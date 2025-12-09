@@ -25,5 +25,6 @@ public:
 	{ }
 
 	Vector3 forceToApply(Particle* p) override;
+	Vector3 forceToApply(DynamicSolid* s) override;
 };
 

@@ -5,11 +5,15 @@
 #include "ParticleSystem.h"
 #include "Cannon.h"
 #include "Singleton.h"
+#include "SolidPSystem.h"
 
 class ForceManager : public Singleton<ForceManager>
 {
 
 	friend Singleton<ForceManager>; // this way Singleton can call the constructor of A
+
+	// Scene to remove solids
+	Scene* mScene = nullptr;
 
 	// Vector of all the forceGenerators in scene
 	std::vector<std::pair<ForceGenerator*, int>> forces;
@@ -19,7 +23,8 @@ class ForceManager : public Singleton<ForceManager>
 	std::vector<std::pair<ParticleSystem*, int>> systems;
 	std::vector<std::pair<Cannon*, int>> cannons;
 
-	
+	std::queue<std::pair<DynamicSolid*, int>> solids;
+	std::vector<std::pair<SolidPSystem*, int>> solidSystems;
 	
 private:
 	
@@ -27,7 +32,7 @@ private:
 	{
 	}
 	
-	bool init();
+	bool init(Scene* scene);
 	
 	virtual ~ForceManager() {
 	
@@ -65,15 +70,19 @@ public:
 	void RegisterPSystem(ParticleSystem* sys, INTER_GRP grp);
 	void RegisterCannon(Cannon* can, INTER_GRP grp);
 
+	inline void RegisterSolid(DynamicSolid* s, INTER_GRP grp) { solids.push({ s, grp }); }
+	void RegisterSolidPSystem(SolidPSystem* sys, INTER_GRP grp);
+
 	inline std::pair<ForceGenerator*, int> getGeneratorAt(int i) { return forces[i]; }
 	std::vector<ForceGenerator*> getGeneratorGroup(FORCE_GRP group);
 
 private:
 
-	// Matrix to set whic systems collide with each force
+	// Matrix to set which systems collide with each force
 
-			
 	std::vector<std::vector<bool>> collides = { 
+		// ROWS = PARTICLES/SOLIDS, COLUMNS = FORCES
+
 		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID
 		{ true, true, false, true, true }, // SPACESHIP
 		{ true, true, false, true, true }, // EXPLOSION PARTICLES

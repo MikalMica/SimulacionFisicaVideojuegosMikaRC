@@ -9,5 +9,6 @@ public:
 	{ }
 
 	bool checkCondition(Particle* p) override;
+	bool checkCondition(DynamicSolid* p) override;
 };
 

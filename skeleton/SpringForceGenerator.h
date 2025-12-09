@@ -1,6 +1,8 @@
 #pragma once
 #include "Anchor.h"
 #include "ForceGenerator.h"
+#include "Scene.h"
+#include "DynamicSolid.h"
 
 class SpringForceGenerator : public ForceGenerator
 {
@@ -15,6 +17,10 @@ protected:
 	Particle* p1;
 	Particle* p2;
 
+	// pointers to the embed solids
+	DynamicSolid* s1;
+	DynamicSolid* s2;
+
 	// private bool to set if the Spring has an anchor or not
 	bool isAnchored;
 
@@ -26,13 +32,31 @@ public:
 		, K(k)
 		, p1(a)
 		, p2(b)
+		, s1(nullptr)
+		, s2(nullptr)
 	{ 
 		if (p2 == nullptr) {
 			p2 = new Anchor({ 0, 0, 0 });
 		}
 	}
 
-	Vector3 forceToApply(Particle* p);
+	SpringForceGenerator(Scene* scene, double l, double k, DynamicSolid* a, DynamicSolid* b = nullptr)
+		: ForceGenerator({ 0, 0, 0 })
+		, length(l)
+		, K(k)
+		, p1(nullptr)
+		, p2(nullptr)
+		, s1(a)
+		, s2(b)
+	{
+		if (s2 == nullptr) {
+			auto s = scene->addSolid(true, 0.5, 0.5, 0.5, { 1, 1, 1 }, 0.9, { 0, 0, 0 });
+			s2 = static_cast<DynamicSolid*>(s);
+		}
+	}
+
+	Vector3 forceToApply(Particle* p) override;
+	Vector3 forceToApply(DynamicSolid* p) override;
 	void setK(double nK) { K = nK; }
 };
 

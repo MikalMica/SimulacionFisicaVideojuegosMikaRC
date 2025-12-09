@@ -35,7 +35,9 @@ public:
 	{ }
 
 	Vector3 forceToApply(Particle* p) override;
+	Vector3 forceToApply(DynamicSolid* s) override;
 	bool checkCondition(Particle* p) override;
+	bool checkCondition(DynamicSolid* s) override;
 	void Update(double t) override;
 };
 

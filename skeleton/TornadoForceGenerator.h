@@ -12,5 +12,6 @@ public:
 
 	Vector3 forceToApply(Particle* p) override;
 	bool checkCondition(Particle* p) override;
-
+	Vector3 forceToApply(DynamicSolid* s) override;
+	bool checkCondition(DynamicSolid* s) override;
 };

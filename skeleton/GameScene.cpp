@@ -60,7 +60,7 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 void 
 GameScene::loadScene() {
 
-	ForceManager::Init();
+	ForceManager::Init(this);
 
 	mSpaceship = new Spaceship();
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });

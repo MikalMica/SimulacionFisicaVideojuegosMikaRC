@@ -13,6 +13,9 @@ public:
 		sBody = static_cast<PxRigidStatic*>(actor);
 	}
 
+	PxActor* getActor() override { return sBody; }
+	Vector3 getPosition() override { return sBody->getGlobalPose().p; }
+
 
 };
 

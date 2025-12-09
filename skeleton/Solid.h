@@ -17,6 +17,7 @@ class Solid
 	RenderItem* item = nullptr;
 
 protected:
+	bool dead = false;
 
 	Solid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material)
 	{
@@ -29,7 +30,11 @@ protected:
 
 public:
 
-	~Solid() { }
+	~Solid() { item->release(); }
 
+	void Update(double t) {}
+	bool hasToDie() { return dead; }
+	virtual Vector3 getPosition() = 0;
+	virtual PxActor* getActor() = 0;
 };
 
