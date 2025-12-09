@@ -42,6 +42,7 @@
     <ClCompile Include="SolidPSystem.cpp" />
     <ClCompile Include="SolidGen.cpp" />
     <ClCompile Include="GaussianSolidGen.cpp" />
+    <ClCompile Include="TorqueForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="SolidPSystem.h" />
     <ClInclude Include="SolidGen.h" />
     <ClInclude Include="GaussianSolidGen.h" />
+    <ClInclude Include="TorqueForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
