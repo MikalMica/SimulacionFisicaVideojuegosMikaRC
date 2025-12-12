@@ -86,7 +86,7 @@ private:
 		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID
 		{ true, true, false, true, true }, // SPACESHIP
 		{ true, true, false, true, true }, // EXPLOSION PARTICLES
-		{ true, true, true, true, true }, // TORNADO PARTS
+		{ false, false, true, false, false }, // TORNADO PARTS
 		{ false, false, false, false, false } // UI
 	};
 };

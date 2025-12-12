@@ -13,19 +13,35 @@ using namespace physx;
 
 class Solid
 {
+protected:
 
 	RenderItem* item = nullptr;
+	Vector4 colour;
+	float radius;
 
 protected:
 	bool dead = false;
 
-	Solid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material)
+	Solid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, Vector4 const& col)
+		: colour(col)
+		, radius(boxSize.z/2)
 	{
 		auto geo = PxBoxGeometry(boxSize.x, boxSize.y, boxSize.z);
 		auto shape = CreateShape(geo, material);
 		actor->attachShape(*shape);
 
-		item = new RenderItem(shape, actor, { 0.4, 0.1, 0.9, 1 });
+		item = new RenderItem(shape, actor, colour);
+	}
+
+	Solid(PxRigidActor* actor, float r, PxMaterial* material, Vector4 const& col)
+		:colour(col)
+		, radius(r)
+	{
+		auto geo = PxSphereGeometry(radius);
+		auto shape = CreateShape(geo, material);
+		actor->attachShape(*shape);
+
+		item = new RenderItem(shape, actor, colour);
 	}
 
 public:

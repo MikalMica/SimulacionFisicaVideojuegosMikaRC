@@ -1,6 +1,7 @@
 #include "TornadoForceGenerator.h"
 #include "Particle.h"
 #include "DynamicSolid.h"
+#include <iostream>
 
 Vector3 
 TornadoForceGenerator::forceToApply(Particle* p) {
@@ -9,6 +10,9 @@ TornadoForceGenerator::forceToApply(Particle* p) {
 	auto vel = k.cross(p->getPosition() - origin);
 
 	auto diff = vel - p->getVelocity();
+	auto force = k1 * diff + k2 * abs(diff.magnitude()) * diff;
+
+	std::cout << p->getVelocity().x << " " << p->getVelocity().y << " " << p->getVelocity().z << "\n";
 	return  k1 * diff + k2 * abs(diff.magnitude()) * diff;
 }
 

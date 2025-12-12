@@ -2,6 +2,8 @@
 #include "Planet.h"
 #include "ParticleSystem.h"
 
+class Scene;
+
 class ExplodingPlanet : public Planet
 {
 
@@ -17,12 +19,15 @@ class ExplodingPlanet : public Planet
 	// timer to delete this after it exploded
 	double destroyTimer = 0;
 
+	Scene* mScene;
+
 public:
 
-	ExplodingPlanet(Vector3 posi, Vector4 col, float r, double mass, float k)
-		: Planet(posi, col, r, mass)
+	ExplodingPlanet(Solid* solid, float r, float k, Scene* scene)
+		: Planet(solid, r)
 		, _K(k)
 		, gIndex(-1)
+		, mScene(scene)
 	{ }
 
 	void Explode();

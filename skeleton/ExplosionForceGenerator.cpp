@@ -1,6 +1,7 @@
 #include "ExplosionForceGenerator.h"
 #include "Particle.h"
 #include "DynamicSolid.h"
+#include "ForceManager.h"
 #include <cmath>
 
 Vector3 
@@ -36,4 +37,6 @@ ExplosionForceGenerator::Update(double t) {
 
 	_time += t;
 	_radius += _eVelocity * t;
+
+	if (_time >= 4 * _T) ForceManager::Instance()->DeleteForceGenerator({ this, ForceManager::PLANET_EXPLOSION });
 }

@@ -50,7 +50,7 @@ public:
 		, s2(b)
 	{
 		if (s2 == nullptr) {
-			auto s = scene->addSolid(true, 0.5, 0.5, 0.5, { 1, 1, 1 }, 0.9, { 0, 0, 0 });
+			auto s = scene->addSolid(true, 0.5, 0.5, 0.5, { 1, 1, 1 }, 0.9, { 0, 0, 0 }, {1, 0, 0, 1});
 			s2 = static_cast<DynamicSolid*>(s);
 		}
 	}

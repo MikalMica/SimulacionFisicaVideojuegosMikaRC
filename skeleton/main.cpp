@@ -66,7 +66,8 @@ void initPhysics(bool interactive)
 	scenes.push_back(new TestScene(gPhysics, gScene)); // 0 | Scene for testing and development
 	scenes.push_back(new GameScene(gPhysics, gScene)); // 1 | Scene for the game itself
 
-	currentScene = 0;
+	currentScene = 1;
+	if (currentScene == 1) gScene->setGravity({ 0, 0, 0 });
 	scenes[currentScene]->loadScene();
 
 	}

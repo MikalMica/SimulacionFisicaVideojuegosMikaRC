@@ -45,6 +45,7 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		for (auto planet : ePlanets) {
 			planet->Explode();
 		}
+		break;
 	case '3':
 		forces = ForceManager::Instance()->getGeneratorGroup(ForceManager::PLANET_RING);
 		for (auto force : forces) {
@@ -69,14 +70,14 @@ GameScene::loadScene() {
 	mCannon->SetSimulatedVel(250);
 
 	// Create the planets
-	planets.push_back(new Planet({ 1200, 0, 500 }, { 1, 0, 1, 1 }, 100, 6 * pow(10, 16)));
-	planets.push_back(new Planet({ 0, 200, 500 }, { 1, 0.5, 0.5, 1 }, 100, 6 * pow(10, 16)));
-	planets.push_back(new Planet({ -800, -400, 0 }, { 1, 0.7, 0.7, 1 }, 100, 6 * pow(10, 16)));
-	planets.push_back(new Planet({ -300, 0, -500 }, { 1, 1, 1, 1 }, 100, 6 * pow(10, 16)));;
-	planets.push_back(new RingedPlanet({ 500, 0, 200 }, { 0, 0, 0, 1 }, 100, 6 * pow(10, 16)));
+	planets.push_back(new Planet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 1200, 0, 500 }, { 1, 0, 1, 1 }), 6 * pow(10, 16)));
+	planets.push_back(new Planet(addSolid(false, 0.3, 0.3, 0.6, 100, 0.8, { 0, 200, 500 }, { 1, 0.5, 0.5, 1 }), 6 * pow(10, 16)));
+	planets.push_back(new Planet(addSolid(false, 0.2, 0.2, 0.8, 100, 0.5, { -800, -400, 0 }, { 1, 0.7, 0.7, 1 }), 6 * pow(10, 16)));
+	planets.push_back(new Planet(addSolid(false, 0.9, 0.9, 0.2, 100, 0.3, { -300, 0, -500 }, { 1, 1, 1, 1 }), 6 * pow(10, 16)));;
+	planets.push_back(new RingedPlanet(addSolid(false, 0.5, 0.5, 0.9, 100, 0.9, { 500, 0, 200 }, { 0, 0, 0, 1 }), 6 * pow(10, 16)));
 
 	// Create aside the Exploding planets
-	auto exp = new ExplodingPlanet({ 300, 0, 700 }, { 1, 0, 0, 1 }, 100, 6 * pow(10, 16), 100);
+	auto exp = new ExplodingPlanet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 300, 0, 700 }, { 1, 0, 0, 1 }), 6 * pow(10, 16), 100, this);
 	planets.push_back(exp);
 	ePlanets.push_back(exp);
 

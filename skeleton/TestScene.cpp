@@ -29,7 +29,7 @@ void
 TestScene::loadScene() {
 	ForceManager::Init(this);
 
-	addSolid(true, 0.5, 0.5, 0.5, { 100, 2, 100 }, 0.9, { 0, 0, 0 });
+	addSolid(true, 0.5, 0.5, 0.5, { 100, 2, 100 }, 0.9, { 0, 0, 0 }, {1, 0, 0, 1});
 	testSys = new SolidPSystem(this, 1000);
 	testSys->addGen(new GaussianSolidGen(this, 0.5, 0.5, 0, 1, 0, {1, 1, 1}, 0.9, 0, {0, 15, 0}, {5, 5, 5}, 100, 0, {0, 0, 0}, {0, 0, 0}, 10, 0.8));
 

@@ -10,8 +10,8 @@ class RingedPlanet : public Planet
 
 public:
 
-	RingedPlanet(Vector3 posi, Vector4 col, float r, double mass)
-		: Planet(posi, col, r, mass)
+	RingedPlanet(Solid* solid, float r)
+		: Planet(solid, r)
 	{ }
 
 	void Update(double t) override;

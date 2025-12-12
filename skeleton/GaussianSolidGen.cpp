@@ -11,7 +11,7 @@ GaussianSolidGen::generateS() {
 		Vector3 vSource = { linearVelocity.x + velocityVar.x * d(mt), linearVelocity.y + velocityVar.y * d(mt), linearVelocity.z + velocityVar.z * d(mt) };
 
 		auto s = mScene->addSolid(false, staticFriction, dynamicFriction + dynamicFrictionVar * d(mt), restituition + restituitionVar * d(mt), 
-								  rigidSize, density + densityVar * d(mt), pSource);
+								  rigidSize, density + densityVar * d(mt), pSource, colour);
 		auto ds = static_cast<DynamicSolid*>(s);
 		ds->setVel(vSource);
 		solids.push_back(ds);

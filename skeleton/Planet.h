@@ -1,27 +1,21 @@
 #pragma once
-#include "Particle.h"
+#include "DynamicSolid.h"
 #include "ExplosionForceGenerator.h"
 #include "RealGravityForceGenerator.h"
 
-class Planet : public Particle
+class Planet : public DynamicSolid
 {
 protected:
 
 	// Radius of the planet
-	float radius;
+	float forceRadius;
 
 public:
 
-	Planet(Vector3 posi, Vector4 col, float r, double mass) 
-		: Particle(posi, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.0, mass, Particle::SI_EULER, col)
-		, radius(r)
+	Planet(Solid *solid, float r) 
+		: DynamicSolid(*static_cast<DynamicSolid*>(solid))
+		, forceRadius(r)
 	{
-
-		item->release();
-
-		auto geom = PxSphereGeometry(r);
-		auto shape = CreateShape(geom);
-		item = new RenderItem(shape, pos, colour);
 	}
 
 	virtual void Update(double t);

@@ -3,15 +3,26 @@
 
 class DynamicSolid : public Solid
 {
+protected:
 
 	PxRigidDynamic* dBody = nullptr;
 	Vector3 originalPos;
 
 public:
 
-	DynamicSolid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, float density, Vector3 pos)
-	: Solid(actor, boxSize, material)
+	DynamicSolid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, float density, Vector3 const& pos, Vector4 const& colour)
+	: Solid(actor, boxSize, material, colour)
 	, originalPos(pos)
+	{
+
+		dBody = static_cast<PxRigidDynamic*>(actor);
+
+		PxRigidBodyExt::updateMassAndInertia(*dBody, density);
+	}
+
+	DynamicSolid(PxRigidActor* actor, float radius, PxMaterial* material, float density, Vector3 pos, Vector4 const& colour)
+		: Solid(actor, radius, material, colour)
+		, originalPos(pos)
 	{
 
 		dBody = static_cast<PxRigidDynamic*>(actor);
