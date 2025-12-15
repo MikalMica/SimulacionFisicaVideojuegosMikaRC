@@ -31,6 +31,7 @@ public:
 	}
 
 	inline void addForce(Vector3 const& force) { dBody->addForce(force);}
+	inline void clearForce() { dBody->clearForce(); dBody->setLinearVelocity({ 0, 0, 0 }); dBody->setAngularVelocity({ 0, 0, 0 }); }
 	inline void addTorque(Vector3 const& torque) { dBody->addTorque(torque); }
 
 	inline bool isFarFromOrigin(double distance) { if (((dBody->getGlobalPose().p - originalPos).magnitude() > distance)) { dead = true; return dead; } return false; }
@@ -42,6 +43,8 @@ public:
 
 	PxActor* getActor() override { return dBody;}
 	Vector3 getPosition() override { return dBody->getGlobalPose().p; }
+	PxQuat getRotation() override { return dBody->getGlobalPose().q; }
+	void setRotation(PxQuat const& rot) override { dBody->setGlobalPose(PxTransform(getPosition(), rot));}
 
 	void Update(double t) override { dBody->clearForce(); }
 };

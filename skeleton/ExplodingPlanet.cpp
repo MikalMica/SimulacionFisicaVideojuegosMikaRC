@@ -29,7 +29,7 @@ ExplodingPlanet::Explode() {
 
 void 
 ExplodingPlanet::init() {
-	gIndex = ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(getMass(), getPosition(), radius + 50), ForceManager::PLANET_GRAVITY);
+	gIndex = ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(getMass(), getPosition(), forceRadius + 50), ForceManager::PLANET_GRAVITY);
 }
 
 void 

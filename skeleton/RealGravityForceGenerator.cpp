@@ -1,6 +1,7 @@
 #include "RealGravityForceGenerator.h"
 #include "Particle.h"
 #include "DynamicSolid.h"
+#include <iostream>
 
 bool 
 RealGravityForceGenerator::checkCondition(Particle* p) {
@@ -24,7 +25,7 @@ RealGravityForceGenerator::forceToApply(Particle* p) {
 bool
 RealGravityForceGenerator::checkCondition(DynamicSolid* s) {
 	if (radius < 0) return true;
-
+	
 	return (s->getPosition() - origin).magnitude() < radius && enabled;
 }
 

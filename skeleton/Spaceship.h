@@ -1,16 +1,15 @@
 #pragma once
-#include "ParticleSystem.h"
+#include "DynamicSolid.h"
 #include "GaussianGen.h"
+#include "ParticleSystem.h"
 #include "Cannon.h"
 
-class Spaceship : public Particle
+class Spaceship : public DynamicSolid
 {
 	// ParticleSystem for the propulsor
 	ParticleSystem* mPSys;
 
-	// Spaceship's size
-	double sizeX;
-	double sizeY;
+	// Spaceship's Z size
 	double sizeZ;
 
 	// Propulsion speed
@@ -35,8 +34,9 @@ class Spaceship : public Particle
 	// Cannon of the Spaceship
 	Cannon* mCannon;
 
-	// Angle of the spaceship
-	double angle;
+	// Angles of the spaceship
+	double hAngle;
+	double vAngle;
 
 	// Original velocity of the pSystem
 	Vector3 oVel;
@@ -46,38 +46,31 @@ class Spaceship : public Particle
 	float yOffset;
 
 public:
-	Spaceship()
-		: Particle({ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, -1, 0.9, 100.0, Particle::SI_EULER, { 43.0 / 255, 76.0 / 255, 142.0 / 255, 1.0 })
-		, sizeX(5)
-		, sizeY(5)
+	Spaceship(Solid* solid)
+		: DynamicSolid(*static_cast<DynamicSolid*>(solid))
 		, sizeZ(10)
-		, propulsionSpeed(1000.0)
+		, propulsionSpeed(10000.0)
 		, showPropulsion(false)
 		, forceToAdd({ 0, 0, 0 })
 		, propulsionTime(0.5)
 		, propulsionTimer(0)
 		, ZOffset(10.0)
 		, YOffset(10.0)
-		, angle(0.0)
+		, hAngle(0.0)
+		, vAngle(0.0)
 		, zOffset(70.0)
 		, yOffset(50.0)
-		, mCannon(new Cannon(pos->p + Vector3(0, 0, sizeZ), {0, 0, 100}, {0, 0, 0}, 5, 0.9, Particle::SI_EULER, 0.5, {1, 0, 1, 1}))
+		, mCannon(new Cannon(getPosition() + Vector3(0, 0, sizeZ), {0, 0, 100}, {0, 0, 0}, 5, 0.9, Particle::SI_EULER, 0.5, {1, 0, 1, 1}))
 	{
 		mCannon->SetSimulatedVel(150);
 
-		auto geom = PxBoxGeometry(sizeX, sizeY, sizeZ);
-		auto shape = CreateShape(geom);
-		item->release();
-		item = new RenderItem(shape, pos, colour);
-
 		mPSys = new ParticleSystem(1000);
-		mPSys->addGen(new GaussianGen(pos->p - Vector3(0, 0, sizeZ), { 0, 0, -20 }, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, { 0, 0, 0 }, { 10, 10, 10 }, { 1, 0.64, 0, 1 }));
+		mPSys->addGen(new GaussianGen(getPosition() - Vector3(0, 0, sizeZ), {0, 0, -20}, 2, 5, 0.6, 0.8, Particle::SI_EULER, 10, 1, 2, 0.1, {0, 0, 0}, {10, 10, 10}, {1, 0.64, 0, 1}));
 		oVel = mPSys->getCurrVelocity();
 	}
 
 	~Spaceship() 
 	{
-		item->release();
 
 		delete mPSys;
 		mPSys = nullptr;

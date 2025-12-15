@@ -21,6 +21,8 @@ public:
 
 	PxActor* getActor() override { return sBody; }
 	Vector3 getPosition() override { return sBody->getGlobalPose().p; }
+	PxQuat getRotation() override { return sBody->getGlobalPose().q; }
+	void setRotation(PxQuat const& rot) override { sBody->setGlobalPose(PxTransform(getPosition(), rot)); }
 
 
 };

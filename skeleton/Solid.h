@@ -51,6 +51,8 @@ public:
 	virtual void Update(double t) {}
 	bool hasToDie() { return dead; }
 	virtual Vector3 getPosition() = 0;
+	virtual PxQuat getRotation() = 0;
+	virtual void setRotation(PxQuat const& rot) = 0;
 	virtual PxActor* getActor() = 0;
 };
 

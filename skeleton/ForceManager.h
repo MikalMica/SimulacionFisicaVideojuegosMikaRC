@@ -84,8 +84,8 @@ private:
 		// ROWS = PARTICLES/SOLIDS, COLUMNS = FORCES
 
 		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID
-		{ true, true, false, true, true }, // SPACESHIP
-		{ true, true, false, true, true }, // EXPLOSION PARTICLES
+		{ true, true, true, true, true }, // SPACESHIP
+		{ true, true, false, true, false }, // EXPLOSION PARTICLES
 		{ false, false, true, false, false }, // TORNADO PARTS
 		{ false, false, false, false, false } // UI
 	};

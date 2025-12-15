@@ -3,12 +3,13 @@
 
 const float pi = 3.141592653589793f;
 
+// IMPORTANT rotar camara y sistema de particulas con nave
 void 
 Spaceship::Update(double t) {
 
-	Particle::Integrate(t);
-
-	if (showPropulsion) mPSys->Update(t);
+	if (showPropulsion) {
+		mPSys->Update(t);
+	}
 
 	if (propulsionTimer >= propulsionTime && showPropulsion) {
 
@@ -16,16 +17,16 @@ Spaceship::Update(double t) {
 		mPSys->DestroyAllParticles();
 	}
 
-	mPSys->setCurrPosition(pos->p - Vector3(sizeZ * std::sin(angle), 0, sizeZ * std::cos(angle)));
-	mCannon->setPosition(pos->p + Vector3(sizeZ * std::sin(angle), 0, sizeZ * std::cos(angle)));
+	mPSys->setCurrPosition(getPosition() - Vector3(sizeZ * std::sin(hAngle), 0, sizeZ * std::cos(hAngle)));
+	mCannon->setPosition(getPosition() + Vector3(sizeZ * std::sin(hAngle), 0, sizeZ * std::cos(hAngle)));
 
 	GetCamera()->setPosition(
-		pos->p - Vector3(
-			sizeZ * std::sin(angle) + zOffset * std::sin(angle), 
+		getPosition() - Vector3(
+			sizeZ * std::sin(hAngle) + zOffset * std::sin(hAngle), 
 			-yOffset, 
-			sizeZ * std::cos(angle) + zOffset * std::cos(angle)));
+			sizeZ * std::cos(hAngle) + zOffset * std::cos(hAngle)));
 
-	GetCamera()->setDirection(pos->p - GetCamera()->getTransform().p + Vector3(0, 30, 0));
+	GetCamera()->setDirection(getPosition() - GetCamera()->getTransform().p + Vector3(0, 30, 0));
 
 	mCannon->Update(t);
 
@@ -37,25 +38,45 @@ Spaceship::keyPress(unsigned char key, const PxTransform& camera) {
 
 	switch (key) {
 	case 'j':
-		addForce(Vector3(pos->q.rotate({ 0, 0, propulsionSpeed })));
+		addForce(Vector3(getRotation().rotate({ 0, 0, propulsionSpeed })));
 		showPropulsion = true;
 		propulsionTimer = 0;
 		break;
 	case 'h':
-		angle += pi / 2 * 0.2;
-		if (angle >= 2 * pi) angle = 0.0;
-		pos->q = PxQuat(angle, {0, 1, 0});
-		mCannon->setVel(pos->q);
-		mPSys->setCurrVelocity(pos->q.rotate(oVel));
-		GetCamera()->getTransform().q = pos->q;
+		clearForce();
+		hAngle += pi / 2 * 0.2;
+		if (hAngle >= 2 * pi) hAngle = 0.0;
+		setRotation(PxQuat(hAngle, {0, 1, 0}));
+		mCannon->setVel(getRotation());
+		mPSys->setCurrVelocity(getRotation().rotate(oVel));
+		GetCamera()->getTransform().q = getRotation();
 		break;
 	case 'k':
-		angle -= pi / 2 * 0.2;
-		if (angle <= 0.0) angle = 2 * pi;
-		pos->q = PxQuat(angle, { 0, 1, 0 });
-		mCannon->setVel(pos->q);
-		mPSys->setCurrVelocity(pos->q.rotate(oVel));
-		GetCamera()->getTransform().q = pos->q;
+		clearForce();
+		hAngle -= pi / 2 * 0.2;
+		if (hAngle <= 0.0) hAngle = 2 * pi;
+		setRotation(PxQuat(hAngle, { 0, 1, 0 }));
+		mCannon->setVel(getRotation());
+		mPSys->setCurrVelocity(getRotation().rotate(oVel));
+		GetCamera()->getTransform().q = getRotation();
+		break;
+	case 'u':
+		clearForce();
+		vAngle -= pi / 2 * 0.2;
+		if (vAngle <= 0.0) vAngle = 2 * pi;
+		setRotation(PxQuat(vAngle, { 1, 0, 0 }));
+		mCannon->setVel(getRotation());
+		mPSys->setCurrVelocity(getRotation().rotate(oVel));
+		GetCamera()->getTransform().q = getRotation();
+		break;
+	case 'n':
+		clearForce();
+		vAngle += pi / 2 * 0.2;
+		if (vAngle >= 2 * pi) vAngle = 0.0;
+		setRotation(PxQuat(vAngle, { 1, 0, 0 }));
+		mCannon->setVel(getRotation());
+		mPSys->setCurrVelocity(getRotation().rotate(oVel));
+		GetCamera()->getTransform().q = getRotation();
 		break;
 	case 'z':
 		mCannon->Shoot();

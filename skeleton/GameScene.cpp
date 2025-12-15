@@ -5,6 +5,7 @@
 #include "Planet.h"
 #include "ExplodingPlanet.h"
 #include "RingedPlanet.h"
+#include "WaterPlanet.h"
 #include "Nebula.h"
 
 void 
@@ -63,26 +64,27 @@ GameScene::loadScene() {
 
 	ForceManager::Init(this);
 
-	mSpaceship = new Spaceship();
+	mSpaceship = new Spaceship(addSolid(false, 0.5, 0.5, 0.8, {5, 5, 10}, 0.9, {0, 0, 0}, {0, 0.3, 0.62, 1}));
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
 	mNebula = new Nebula({ 400, 0, 400 });
 
 	mCannon->SetSimulatedVel(250);
 
 	// Create the planets
-	planets.push_back(new Planet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 1200, 0, 500 }, { 1, 0, 1, 1 }), 6 * pow(10, 16)));
-	planets.push_back(new Planet(addSolid(false, 0.3, 0.3, 0.6, 100, 0.8, { 0, 200, 500 }, { 1, 0.5, 0.5, 1 }), 6 * pow(10, 16)));
-	planets.push_back(new Planet(addSolid(false, 0.2, 0.2, 0.8, 100, 0.5, { -800, -400, 0 }, { 1, 0.7, 0.7, 1 }), 6 * pow(10, 16)));
-	planets.push_back(new Planet(addSolid(false, 0.9, 0.9, 0.2, 100, 0.3, { -300, 0, -500 }, { 1, 1, 1, 1 }), 6 * pow(10, 16)));;
-	planets.push_back(new RingedPlanet(addSolid(false, 0.5, 0.5, 0.9, 100, 0.9, { 500, 0, 200 }, { 0, 0, 0, 1 }), 6 * pow(10, 16)));
+	planets.push_back(new Planet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 1200, 0, 500 }, { 1, 0, 1, 1 }), 150));
+	planets.push_back(new Planet(addSolid(false, 0.3, 0.3, 0.6, 100, 0.8, { 0, 200, 500 }, { 1, 0.5, 0.5, 1 }), 150));
+	planets.push_back(new Planet(addSolid(false, 0.2, 0.2, 0.8, 100, 0.5, { -800, -400, 0 }, { 1, 0.7, 0.7, 1 }), 150));
+	planets.push_back(new Planet(addSolid(false, 0.9, 0.9, 0.2, 100, 0.3, { -300, 0, -500 }, { 1, 1, 1, 1 }), 150));;
+	planets.push_back(new RingedPlanet(addSolid(false, 0.5, 0.5, 0.9, 100, 0.9, { 500, 0, 200 }, { 0, 0, 0, 1 }), 150));
+	planets.push_back(new WaterPlanet(addSolid(false, 0.5, 0.5, 0.9, 50, 0.9, { 600, 0, -600 }, { 1, 1, 1, 1 }), 150));
 
 	// Create aside the Exploding planets
-	auto exp = new ExplodingPlanet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 300, 0, 700 }, { 1, 0, 0, 1 }), 6 * pow(10, 16), 100, this);
+	auto exp = new ExplodingPlanet(addSolid(false, 0.5, 0.5, 0.8, 100, 0.9, { 300, 0, 700 }, { 1, 0, 0, 1 }), 150, 100, this);
 	planets.push_back(exp);
 	ePlanets.push_back(exp);
 
 	// Register Spaceship's components
-	ForceManager::Instance()->RegisterParticle(mSpaceship, ForceManager::SPACESHIP);
+	ForceManager::Instance()->RegisterSolid(mSpaceship, ForceManager::SPACESHIP);
 	ForceManager::Instance()->RegisterCannon(mSpaceship->getCannon(), ForceManager::SPACESHIP);
 	ForceManager::Instance()->RegisterPSystem(mSpaceship->getPSystem(), ForceManager::SPACESHIP);
 

@@ -10,7 +10,7 @@ Planet::keyPress(unsigned char key, const PxTransform& camera) {
 void 
 Planet::init() {
 
-	ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(getMass(), getPosition(), forceRadius + 50), ForceManager::PLANET_GRAVITY);
+	ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(5.97 * pow(10, 15), getPosition(), forceRadius + 50), ForceManager::PLANET_GRAVITY);
 }
 
 void

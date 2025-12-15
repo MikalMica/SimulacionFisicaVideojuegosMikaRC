@@ -43,6 +43,8 @@
     <ClCompile Include="SolidGen.cpp" />
     <ClCompile Include="GaussianSolidGen.cpp" />
     <ClCompile Include="TorqueForceGenerator.cpp" />
+    <ClCompile Include="WaterPlanet.cpp" />
+    <ClCompile Include="FloatingPlanetForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -89,6 +91,8 @@
     <ClInclude Include="SolidGen.h" />
     <ClInclude Include="GaussianSolidGen.h" />
     <ClInclude Include="TorqueForceGenerator.h" />
+    <ClInclude Include="WaterPlanet.h" />
+    <ClInclude Include="FloatingPlanetForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

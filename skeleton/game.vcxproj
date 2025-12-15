@@ -261,6 +261,7 @@
     <ClCompile Include="ExplodingPlanet.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="FloatingForceGenerator.cpp" />
+    <ClCompile Include="FloatingPlanetForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="ForceManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -290,6 +291,7 @@
     <ClCompile Include="TornadoForceGenerator.cpp" />
     <ClCompile Include="TorqueForceGenerator.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="WaterPlanet.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +305,7 @@
     <ClInclude Include="ExplodingPlanet.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="FloatingForceGenerator.h" />
+    <ClInclude Include="FloatingPlanetForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceManager.h" />
     <ClInclude Include="GameScene.h" />
@@ -332,6 +335,7 @@
     <ClInclude Include="TornadoForceGenerator.h" />
     <ClInclude Include="TorqueForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="WaterPlanet.h" />
     <ClInclude Include="WindForceGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

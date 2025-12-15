@@ -12,7 +12,6 @@ TornadoForceGenerator::forceToApply(Particle* p) {
 	auto diff = vel - p->getVelocity();
 	auto force = k1 * diff + k2 * abs(diff.magnitude()) * diff;
 
-	std::cout << p->getVelocity().x << " " << p->getVelocity().y << " " << p->getVelocity().z << "\n";
 	return  k1 * diff + k2 * abs(diff.magnitude()) * diff;
 }
 
