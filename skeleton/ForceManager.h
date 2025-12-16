@@ -50,6 +50,8 @@ public:
 		PLANET_RING,
 		SPRING,
 		LIQUID,
+		ORBIT,
+		SPIN,
 		FORCE_SIZE // C++ truco
 	};
 
@@ -58,6 +60,8 @@ public:
 		EXPLOSION_PARTS,
 		TORNADO_PARTS,
 		UI,
+		COMET_PARTS,
+		COMET,
 		INTER_SIZE // C++ truco
 	};
 
@@ -83,11 +87,13 @@ private:
 	std::vector<std::vector<bool>> collides = { 
 		// ROWS = PARTICLES/SOLIDS, COLUMNS = FORCES
 
-		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID
-		{ true, true, true, true, true }, // SPACESHIP
-		{ true, true, false, true, false }, // EXPLOSION PARTICLES
-		{ false, false, true, false, false }, // TORNADO PARTS
-		{ false, false, false, false, false } // UI
+		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID, ORBIT, SPIN
+		{ true, true, true, true, true, false, false }, // SPACESHIP
+		{ true, true, false, true, false, false, false }, // EXPLOSION PARTICLES
+		{ false, false, true, false, false, false, false }, // TORNADO PARTS
+		{ false, false, false, false, false, false, false }, // UI
+		{ false, false, false, false, false, false, false }, // COMET_PARTS
+		{ false, false, false, false, false, true, true } // COMET
 	};
 };
 

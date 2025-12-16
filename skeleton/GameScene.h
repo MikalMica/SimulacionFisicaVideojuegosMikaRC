@@ -7,6 +7,7 @@ class Cannon;
 class Planet;
 class ExplodingPlanet;
 class Nebula;
+class Comet;
 
 class GameScene : public Scene
 {
@@ -25,6 +26,9 @@ class GameScene : public Scene
 	// Nebula
 	Nebula* mNebula;
 
+	// Comet
+	Comet* mComet;
+
 	// method to remove dead planets
 	bool killPlanet(Planet* planet);
 
@@ -35,6 +39,7 @@ public:
 		, mSpaceship(nullptr)
 		, mCannon(nullptr)
 		, mNebula(nullptr)
+		, mComet(nullptr)
 	{}
 
 	void Update(double t) override;

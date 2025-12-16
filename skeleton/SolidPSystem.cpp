@@ -24,6 +24,7 @@ SolidPSystem::Update(double t) {
 		auto s = solids.front();
 		solids.pop();
 
+		s->Update(t);
 
 		if (!forces.empty()) {
 			for (int j = 0; j < forces.size(); ++j) {
@@ -32,7 +33,6 @@ SolidPSystem::Update(double t) {
 
 			}
 		}
-		s->Update(t);
 		s->isFarFromOrigin(generators[genIndex]->getDistance());
 
 		if (!s->hasToDie()) solids.push(s);

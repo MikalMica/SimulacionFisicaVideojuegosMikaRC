@@ -45,6 +45,8 @@
     <ClCompile Include="TorqueForceGenerator.cpp" />
     <ClCompile Include="WaterPlanet.cpp" />
     <ClCompile Include="FloatingPlanetForceGenerator.cpp" />
+    <ClCompile Include="Comet.cpp" />
+    <ClCompile Include="SolidCannon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -93,6 +95,8 @@
     <ClInclude Include="TorqueForceGenerator.h" />
     <ClInclude Include="WaterPlanet.h" />
     <ClInclude Include="FloatingPlanetForceGenerator.h" />
+    <ClInclude Include="Comet.h" />
+    <ClInclude Include="SolidCannon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

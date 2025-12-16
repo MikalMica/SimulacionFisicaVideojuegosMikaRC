@@ -7,12 +7,28 @@ protected:
 
 	PxRigidDynamic* dBody = nullptr;
 	Vector3 originalPos;
+	float timeToDie;
+	float timer;
 
 public:
 
 	DynamicSolid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, float density, Vector3 const& pos, Vector4 const& colour)
 	: Solid(actor, boxSize, material, colour)
 	, originalPos(pos)
+		,timeToDie(-1)
+		, timer(0)
+	{
+		
+		dBody = static_cast<PxRigidDynamic*>(actor);
+
+		PxRigidBodyExt::updateMassAndInertia(*dBody, density);
+	}
+
+	DynamicSolid(PxRigidActor* actor, Vector3 const& boxSize, PxMaterial* material, float density, Vector3 const& pos, Vector4 const& colour, float time)
+		: Solid(actor, boxSize, material, colour)
+		, originalPos(pos)
+		, timeToDie(time)
+		, timer(0)
 	{
 
 		dBody = static_cast<PxRigidDynamic*>(actor);
@@ -23,6 +39,8 @@ public:
 	DynamicSolid(PxRigidActor* actor, float radius, PxMaterial* material, float density, Vector3 pos, Vector4 const& colour)
 		: Solid(actor, radius, material, colour)
 		, originalPos(pos)
+		,timeToDie(-1)
+		, timer(0)
 	{
 
 		dBody = static_cast<PxRigidDynamic*>(actor);
@@ -31,7 +49,7 @@ public:
 	}
 
 	inline void addForce(Vector3 const& force) { dBody->addForce(force);}
-	inline void clearForce() { dBody->clearForce(); dBody->setLinearVelocity({ 0, 0, 0 }); dBody->setAngularVelocity({ 0, 0, 0 }); }
+	inline void clearForce() { dBody->clearForce(); dBody->clearTorque(); dBody->setLinearVelocity({ 0, 0, 0 }); dBody->setAngularVelocity({ 0, 0, 0 }); }
 	inline void addTorque(Vector3 const& torque) { dBody->addTorque(torque); }
 
 	inline bool isFarFromOrigin(double distance) { if (((dBody->getGlobalPose().p - originalPos).magnitude() > distance)) { dead = true; return dead; } return false; }
@@ -46,6 +64,13 @@ public:
 	PxQuat getRotation() override { return dBody->getGlobalPose().q; }
 	void setRotation(PxQuat const& rot) override { dBody->setGlobalPose(PxTransform(getPosition(), rot));}
 
-	void Update(double t) override { dBody->clearForce(); }
+	void Update(double t) override {
+		clearForce();
+		
+		if (timeToDie > -1) {
+			timer += t;
+			if (timer >= timeToDie) { dead = true; }
+		}
+	}
 };
 

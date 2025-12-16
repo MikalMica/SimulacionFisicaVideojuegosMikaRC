@@ -3,7 +3,7 @@
 #include "StaticSolid.h"
 
 Solid*
-Scene::addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos, Vector4 const& colour) {
+Scene::addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos, Vector4 const& colour, double lifeTime) {
 
 	PxRigidActor* actor = nullptr;
 	PxTransform tf = PxTransform(pos);
@@ -17,7 +17,7 @@ Scene::addSolid(bool isStatic, float sFriction, float dFriction, float resti, Ve
 	}
 	else {
 		actor = gPhysics->createRigidDynamic(tf);
-		rigid = new DynamicSolid(actor, boxSize, material, density, pos, colour);
+		rigid = new DynamicSolid(actor, boxSize, material, density, pos, colour, lifeTime);
 	}
 
 	gScene->addActor(*actor);

@@ -7,10 +7,7 @@
 void 
 ExplodingPlanet::Explode() {
 
-	//item->release();
-	//auto geom = PxSphereGeometry(0.01);
-	//auto shape = CreateShape(geom);
-	//item = new RenderItem(shape, pos, colour);
+	item->release();
 
 	mScene->removeSolid(this);
 

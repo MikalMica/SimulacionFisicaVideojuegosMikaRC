@@ -34,6 +34,8 @@ protected:
 	Vector3 velocityVar;
 	int numSolids;
 	double probGen;
+	double lifeTime;
+	double lifeTimeVar;
 	
 	std::mt19937 mt;
 	std::uniform_real_distribution<double> u{ 0, 1 };
@@ -41,7 +43,7 @@ protected:
 public:
 
 	SolidGen(Scene* scene, float sFriction, float dFriction, float dFrictionVar, float resti, float restiVar, Vector3 const& boxSize, float den, float denVar, Vector3 const& pos, Vector3 const& posVar, 
-		double dist, double distVar, Vector3 const& vel, Vector3 const& velVar, int nSolids, double probability)
+		double dist, double distVar, Vector3 const& vel, Vector3 const& velVar, int nSolids, double probability, Vector4 const& col, double lTime, double lTimeVar)
 		: mScene(scene)
 		, staticFriction(sFriction)
 		, dynamicFriction(dFriction)
@@ -59,6 +61,9 @@ public:
 		, velocityVar(velVar)
 		, numSolids(nSolids)
 		, probGen(probability)
+		, colour(col)
+		, lifeTime(lTime)
+		, lifeTimeVar(lTimeVar)
 	{}
 
 	virtual std::vector<DynamicSolid*> generateS() = 0;

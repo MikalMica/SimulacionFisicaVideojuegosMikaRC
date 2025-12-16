@@ -7,6 +7,7 @@
 #include "RingedPlanet.h"
 #include "WaterPlanet.h"
 #include "Nebula.h"
+#include "Comet.h"
 
 void 
 GameScene::Update(double t) {
@@ -14,6 +15,7 @@ GameScene::Update(double t) {
 	mSpaceship->Update(t);
 	mCannon->Update(t);
 	mNebula->Update(t);
+	mComet->Update(t);
 	
 	for (auto planet : planets) {
 		if (planet->hasToDie()) {
@@ -67,6 +69,7 @@ GameScene::loadScene() {
 	mSpaceship = new Spaceship(addSolid(false, 0.5, 0.5, 0.8, {5, 5, 10}, 0.9, {0, 0, 0}, {0, 0.3, 0.62, 1}));
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
 	mNebula = new Nebula({ 400, 0, 400 });
+	mComet = new Comet(addSolid(false, 0.5, 0.2, 0.3, { 5, 5, 5 }, 0.9, { 1500, 0, 0 }, { 0.2, 0.1, 0, 1 }), {0, 0, 0}, 1600);
 
 	mCannon->SetSimulatedVel(250);
 
@@ -75,7 +78,7 @@ GameScene::loadScene() {
 	planets.push_back(new Planet(addSolid(false, 0.3, 0.3, 0.6, 100, 0.8, { 0, 200, 500 }, { 1, 0.5, 0.5, 1 }), 150));
 	planets.push_back(new Planet(addSolid(false, 0.2, 0.2, 0.8, 100, 0.5, { -800, -400, 0 }, { 1, 0.7, 0.7, 1 }), 150));
 	planets.push_back(new Planet(addSolid(false, 0.9, 0.9, 0.2, 100, 0.3, { -300, 0, -500 }, { 1, 1, 1, 1 }), 150));;
-	planets.push_back(new RingedPlanet(addSolid(false, 0.5, 0.5, 0.9, 100, 0.9, { 500, 0, 200 }, { 0, 0, 0, 1 }), 150));
+	planets.push_back(new RingedPlanet(this, addSolid(false, 0.5, 0.5, 0.9, 100, 0.9, { 500, 0, 200 }, { 0, 0, 0, 1 }), 150));
 	planets.push_back(new WaterPlanet(addSolid(false, 0.5, 0.5, 0.9, 50, 0.9, { 600, 0, -600 }, { 1, 1, 1, 1 }), 150));
 
 	// Create aside the Exploding planets
@@ -105,6 +108,9 @@ GameScene::unloadScene() {
 
 	delete mNebula;
 	mNebula = nullptr;
+
+	delete mComet;
+	mComet = nullptr;
 
 	ePlanets.clear();
 

@@ -60,9 +60,17 @@ ForceManager::RegisterSolidPSystem(SolidPSystem* sys, INTER_GRP grp) {
 void 
 ForceManager::Update(double t) {
 
+	int size = solids.size();
+	for (int i = 0; i < size; ++i) {
+		auto s = solids.front();
+		solids.pop();
+		s.first->Update(t);
+		solids.push(s);
+	}
+
 	for (auto force : forces) {
 
-		int size = particles.size();
+		size = particles.size();
 		for (int i = 0; i < size; ++i) {
 			auto p = particles.front();
 			particles.pop();
@@ -92,7 +100,6 @@ ForceManager::Update(double t) {
 			else {
 				if (collides[s.second][force.second] && force.first->checkCondition(s.first))
 					s.first->addForce(force.first->forceToApply(s.first));
-				s.first->Update(t);
 				solids.push(s);
 			}
 		}

@@ -18,7 +18,7 @@ Spaceship::Update(double t) {
 	}
 
 	mPSys->setCurrPosition(getPosition() - Vector3(sizeZ * std::sin(hAngle), 0, sizeZ * std::cos(hAngle)));
-	mCannon->setPosition(getPosition() + Vector3(sizeZ * std::sin(hAngle), 0, sizeZ * std::cos(hAngle)));
+	mCannon->setPosition(getPosition() + Vector3(sizeZ * std::sin(hAngle),0 , sizeZ * std::cos(hAngle)));
 
 	GetCamera()->setPosition(
 		getPosition() - Vector3(
@@ -56,24 +56,6 @@ Spaceship::keyPress(unsigned char key, const PxTransform& camera) {
 		hAngle -= pi / 2 * 0.2;
 		if (hAngle <= 0.0) hAngle = 2 * pi;
 		setRotation(PxQuat(hAngle, { 0, 1, 0 }));
-		mCannon->setVel(getRotation());
-		mPSys->setCurrVelocity(getRotation().rotate(oVel));
-		GetCamera()->getTransform().q = getRotation();
-		break;
-	case 'u':
-		clearForce();
-		vAngle -= pi / 2 * 0.2;
-		if (vAngle <= 0.0) vAngle = 2 * pi;
-		setRotation(PxQuat(vAngle, { 1, 0, 0 }));
-		mCannon->setVel(getRotation());
-		mPSys->setCurrVelocity(getRotation().rotate(oVel));
-		GetCamera()->getTransform().q = getRotation();
-		break;
-	case 'n':
-		clearForce();
-		vAngle += pi / 2 * 0.2;
-		if (vAngle >= 2 * pi) vAngle = 0.0;
-		setRotation(PxQuat(vAngle, { 1, 0, 0 }));
 		mCannon->setVel(getRotation());
 		mPSys->setCurrVelocity(getRotation().rotate(oVel));
 		GetCamera()->getTransform().q = getRotation();
