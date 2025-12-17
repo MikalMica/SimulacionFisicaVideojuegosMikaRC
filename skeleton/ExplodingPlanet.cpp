@@ -8,6 +8,7 @@ void
 ExplodingPlanet::_Explode() {
 
 	item->release();
+	item = nullptr;
 
 	mScene->removeSolid(this);
 
@@ -42,11 +43,5 @@ ExplodingPlanet::Update(double t) {
 
 	if (explosion != nullptr) {
 		explosion->Update(t);
-
-		destroyTimer += t;
-
-		if (destroyTimer >= 7) {
-			dead = true;
-		}
 	}
 }
