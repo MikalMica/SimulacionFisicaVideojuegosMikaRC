@@ -7,7 +7,14 @@
 
 void 
 RingedPlanet::Update(double t) {
+
 	ring->Update(t);
+
+	if (tIndex >= 0 && (getPosition().x > iPos.x + 10 || getPosition().x < iPos.x - 10)) {
+		ForceManager::Instance()->DeleteForceGenerator(ForceManager::Instance()->getGeneratorAt(tIndex));
+		ring->ChangeParticleGeneration();
+		tIndex = -1;
+	}
 }
 
 void 
@@ -17,5 +24,8 @@ RingedPlanet::init() {
 	ring->addGen(gen);
 
 	ForceManager::Instance()->RegisterSolidPSystem(ring, ForceManager::TORNADO_PARTS);
-	ForceManager::Instance()->AddForceGenerator(new TornadoForceGenerator({ 0, 1, 0 }, dBody->getGlobalPose().p, 5, forceRadius), ForceManager::PLANET_RING);
+	tIndex = ForceManager::Instance()->AddForceGenerator(new TornadoForceGenerator({ 0, 1, 0 }, dBody->getGlobalPose().p, 5, forceRadius), ForceManager::PLANET_RING);
+	ForceManager::Instance()->RegisterSolid(this, ForceManager::PLANET);
+
+	iPos = getPosition();
 }

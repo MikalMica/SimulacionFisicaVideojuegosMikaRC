@@ -66,5 +66,7 @@ public:
 	inline double getMass() { return pow(invM, -1); }
 	inline void setMass(double nMass) { invM = pow(nMass, -1); }
 	double SetSimulatedVel(double simulatedVel);
+
+	inline void setDead() { dead = true; }
 };
 

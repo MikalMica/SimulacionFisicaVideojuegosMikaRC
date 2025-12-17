@@ -3,6 +3,7 @@
 #include <functional>
 #include "Particle.h"
 #include "ParticleGen.h"
+#include <iostream>
 class ForceGenerator;
 
 class ParticleSystem

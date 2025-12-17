@@ -47,7 +47,9 @@
     <ClCompile Include="FloatingPlanetForceGenerator.cpp" />
     <ClCompile Include="Comet.cpp" />
     <ClCompile Include="SolidCannon.cpp" />
-    <ClCompile Include="AlienSpaceship.cpp" />
+    <ClCompile Include="AlienLifeForm.cpp" />
+    <ClCompile Include="Star.cpp" />
+    <ClCompile Include="BlackHole.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -99,7 +101,9 @@
     <ClInclude Include="Comet.h" />
     <ClInclude Include="SolidCannon.h" />
     <ClInclude Include="SpaceObjectData.h" />
-    <ClInclude Include="AlienSpaceship.h" />
+    <ClInclude Include="AlienLifeForm.h" />
+    <ClInclude Include="Star.h" />
+    <ClInclude Include="BlackHole.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

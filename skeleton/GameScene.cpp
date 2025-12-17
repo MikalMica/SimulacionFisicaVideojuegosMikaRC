@@ -8,6 +8,8 @@
 #include "WaterPlanet.h"
 #include "Nebula.h"
 #include "Comet.h"
+#include "AlienLifeForm.h"
+#include "Star.h"
 
 void 
 GameScene::Update(double t) {
@@ -16,6 +18,8 @@ GameScene::Update(double t) {
 	mCannon->Update(t);
 	mNebula->Update(t);
 	mComet->Update(t);
+	mAlien->Update(t);
+	mStar->Update(t);
 	
 	for (auto planet : planets) {
 		if (planet->hasToDie()) {
@@ -39,7 +43,7 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		mCannon->Shoot();
 		break;
 	case '1':
-		forces = ForceManager::Instance()->getGeneratorGroup(ForceManager::PLANET_GRAVITY);
+		forces = ForceManager::Instance()->getGeneratorGroup(ForceManager::GRAVITY);
 		for (auto force : forces) {
 			force->changeEnabled();
 		}
@@ -55,6 +59,13 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		for (auto force : forces) {
 			force->changeEnabled();
 		}
+		break;
+	case '4':
+		mAlien->Die();
+		break;
+	case '5':
+		mStar->Supernova();
+		break;
 	default:
 		break;
 	}
@@ -71,6 +82,8 @@ GameScene::loadScene() {
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
 	mNebula = new Nebula({ 400, 0, 400 });
 	mComet = new Comet(addSolid(false, 0.5, 0.2, 0.3, { 5, 5, 5 }, 0.9, { 1500, 0, 0 }, { 0.2, 0.1, 0, 1 }), {0, 0, 0}, 1600);
+	mAlien = new AlienLifeForm({ 0, 0, 50 }, { -10, 0, 0 }, { 15, 15, 15 }, this, 30);
+	mStar = new Star({ -2000, 0, 2000 }, 1000);
 
 	mCannon->SetSimulatedVel(250);
 
@@ -112,6 +125,9 @@ GameScene::unloadScene() {
 
 	delete mComet;
 	mComet = nullptr;
+
+	delete mAlien;
+	mAlien = nullptr;
 
 	ePlanets.clear();
 

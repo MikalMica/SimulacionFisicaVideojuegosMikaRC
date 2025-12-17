@@ -46,7 +46,7 @@ protected:
 
 public:
 
-	~Solid() { item->release(); }
+	~Solid() { if(item != nullptr) item->release(); }
 
 	virtual void Update(double t) {}
 	bool hasToDie() { return dead; }

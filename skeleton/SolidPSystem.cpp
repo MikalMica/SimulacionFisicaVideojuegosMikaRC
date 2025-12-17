@@ -6,9 +6,9 @@
 
 void
 SolidPSystem::Update(double t) {
-	auto sols = generators[genIndex]->generateS();
 
 	if (generate) {
+		auto sols = generators[genIndex]->generateS();
 		for (auto s : sols) {
 			if (solids.size() < maxSolids)
 				solids.push(s);

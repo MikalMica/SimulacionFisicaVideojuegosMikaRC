@@ -80,8 +80,8 @@ ForceManager::Update(double t) {
 	for (int i = 0; i < size; ++i) {
 		auto s = solids.front();
 		solids.pop();
-		if(s.second != INTER_GRP::SPACESHIP) s.first->clearForceAndVelocity();
-		s.first->Update(t);
+		//if(s.second != INTER_GRP::SPACESHIP) s.first->clearForceAndVelocity();
+		if(s.second != INTER_GRP::PLANET) s.first->Update(t);
 		solids.push(s);
 	}
 

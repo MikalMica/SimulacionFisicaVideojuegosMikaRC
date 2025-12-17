@@ -8,6 +8,8 @@ class Planet;
 class ExplodingPlanet;
 class Nebula;
 class Comet;
+class AlienLifeForm;
+class Star;
 
 class GameScene : public Scene
 {
@@ -28,6 +30,12 @@ class GameScene : public Scene
 
 	// Comet
 	Comet* mComet;
+
+	// Gaseous alien
+	AlienLifeForm* mAlien;
+
+	// Star
+	Star* mStar;
 
 	// method to remove dead planets
 	bool killPlanet(Planet* planet);

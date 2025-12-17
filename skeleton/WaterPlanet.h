@@ -4,6 +4,7 @@
 class WaterPlanet : public Planet
 {
 	float waterRadius;
+	Vector3 iPos;
 public:
 	WaterPlanet(Solid* solid, float r)
 		: Planet(solid, r - (r / 3))
@@ -17,9 +18,11 @@ public:
 		data->type = SpaceObjectType::WATER_PLANET;
 		data->object = this;
 		dBody->userData = data;
+
+		iPos = getPosition();
 	}
 
 	void init() override;
-
+	void Update(double t) override;
 };
 

@@ -47,13 +47,14 @@ private:
 public:
 
 	enum FORCE_GRP {
-		PLANET_GRAVITY,
-		PLANET_EXPLOSION,
+		GRAVITY,
+		EXPLOSION,
 		PLANET_RING,
 		SPRING,
 		LIQUID,
 		ORBIT,
 		SPIN,
+		BLACK_HOLE,
 		FORCE_SIZE // C++ truco
 	};
 
@@ -64,6 +65,9 @@ public:
 		UI,
 		COMET_PARTS,
 		COMET,
+		ALIEN,
+		ALIEN_HEART,
+		PLANET,
 		INTER_SIZE // C++ truco
 	};
 
@@ -90,13 +94,16 @@ private:
 	std::vector<std::vector<bool>> collides = { 
 		// ROWS = PARTICLES/SOLIDS, COLUMNS = FORCES
 
-		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID, ORBIT, SPIN
-		{ true, true, true, true, true, false, false }, // SPACESHIP
-		{ true, true, false, true, false, false, false }, // EXPLOSION PARTICLES
-		{ false, false, true, false, false, false, false }, // TORNADO PARTS
-		{ false, false, false, false, false, false, false }, // UI
-		{ false, false, false, false, false, false, false }, // COMET_PARTS
-		{ false, false, false, false, false, true, true } // COMET
+		// GRAVITY, EXPLOSION, RING, SPRING, LIQUID, ORBIT, SPIN, BLACK_HOLE
+		{ true, true, true, false, true, false, false, false }, // SPACESHIP
+		{ true, true, false, false, false, false, false, true }, // EXPLOSION PARTICLES
+		{ false, false, true, false, false, false, false, true }, // TORNADO PARTS
+		{ false, false, false, false, false, false, false, false }, // UI
+		{ false, false, false, false, false, false, false, true }, // COMET_PARTS
+		{ false, false, false, false, false, true, true, true }, // COMET
+		{ false, true, false, true, false, false, false, true }, // ALIEN
+		{ false, false, false, false, false, false, false, true }, // ALIEN_HEART
+		{ false, false, false, false, false, false, false, true } // PLANET
 	};
 };
 

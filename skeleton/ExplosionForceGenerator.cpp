@@ -38,5 +38,5 @@ ExplosionForceGenerator::Update(double t) {
 	_time += t;
 	_radius += _eVelocity * t;
 
-	if (_time >= 4 * _T) ForceManager::Instance()->DeleteForceGenerator({ this, ForceManager::PLANET_EXPLOSION });
+	if (_time >= 4 * _T) ForceManager::Instance()->DeleteForceGenerator({ this, ForceManager::EXPLOSION });
 }

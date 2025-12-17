@@ -1,7 +1,5 @@
 #pragma once
 
-// Cualquier parecido entre este archivo y el de otros compis de clase es pura coincidencia
-
 enum class SpaceObjectType {
 	PLANET,
 	EXPLODING_PLANET,

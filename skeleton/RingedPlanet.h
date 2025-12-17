@@ -10,11 +10,15 @@ class RingedPlanet : public Planet
 
 	Scene* scene = nullptr;
 
+	int tIndex;
+	Vector3 iPos;
+
 public:
 
 	RingedPlanet(Scene* sce, Solid* solid, float r)
 		: Planet(solid, r)
 		, scene(sce)
+		,tIndex(-1)
 	{ 
 		auto data = new SpaceObjectData();
 		data->type = SpaceObjectType::COMET;
