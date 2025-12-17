@@ -1,6 +1,7 @@
 #pragma once
 #include <PxPhysicsAPI.h>
 #include "core.hpp"
+#include "SpaceObjectData.h"
 
 class Solid;
 
@@ -23,8 +24,10 @@ public:
 	virtual void loadScene() = 0;
 	virtual void unloadScene() = 0;
 
-	Solid* addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos, Vector4 const& colour, double lifeTime = -1);
-	Solid* addSolid(bool isStatic, float sFriction, float dFriction, float resti, float radius, float density, Vector3 const& pos, Vector4 const& colour);
+	virtual void onCollision(physx::PxActor* actor1, physx::PxActor* actor2) = 0;
+	
+	Solid* addSolid(bool isStatic, float sFriction, float dFriction, float resti, Vector3 const& boxSize, float density, Vector3 const& pos, Vector4 const& colour, double lifeTime = -1, SpaceObjectType type = SpaceObjectType::DEFAULT);
+	Solid* addSolid(bool isStatic, float sFriction, float dFriction, float resti, float radius, float density, Vector3 const& pos, Vector4 const& colour, double lifeTime = -1, SpaceObjectType type = SpaceObjectType::DEFAULT);
 	void removeSolid(Solid* solid);
 };
 

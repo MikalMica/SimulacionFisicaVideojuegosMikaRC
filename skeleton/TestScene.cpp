@@ -40,3 +40,7 @@ TestScene::loadScene() {
 void 
 TestScene::unloadScene() {
 }
+
+void 
+TestScene::onCollision(physx::PxActor* actor1, physx::PxActor* actor2) {
+}

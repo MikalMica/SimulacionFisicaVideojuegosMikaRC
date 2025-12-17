@@ -46,7 +46,8 @@ GameScene::keyPress(unsigned char key, const PxTransform& camera) {
 		break;
 	case '2':
 		for (auto planet : ePlanets) {
-			planet->Explode();
+			if(!planet->hasPlanetExploded())
+				planet->Explode();
 		}
 		break;
 	case '3':
@@ -66,7 +67,7 @@ GameScene::loadScene() {
 
 	ForceManager::Init(this);
 
-	mSpaceship = new Spaceship(addSolid(false, 0.5, 0.5, 0.8, {5, 5, 10}, 0.9, {0, 0, 0}, {0, 0.3, 0.62, 1}));
+	mSpaceship = new Spaceship(addSolid(false, 0.5, 0.5, 0.8, {5, 5, 10}, 0.9, {0, 0, 0}, {0, 0.3, 0.62, 1}), this);
 	mCannon = new Cannon({ 0, 0, 0 }, { 100, 0, 0 }, { 0, 0, 0 }, 5, 0.9, Particle::SI_EULER, 0.1, { 1, 0, 0, 1 });
 	mNebula = new Nebula({ 400, 0, 400 });
 	mComet = new Comet(addSolid(false, 0.5, 0.2, 0.3, { 5, 5, 5 }, 0.9, { 1500, 0, 0 }, { 0.2, 0.1, 0, 1 }), {0, 0, 0}, 1600);
@@ -88,7 +89,7 @@ GameScene::loadScene() {
 
 	// Register Spaceship's components
 	ForceManager::Instance()->RegisterSolid(mSpaceship, ForceManager::SPACESHIP);
-	ForceManager::Instance()->RegisterCannon(mSpaceship->getCannon(), ForceManager::SPACESHIP);
+	ForceManager::Instance()->RegisterSolidCannon(mSpaceship->getCannon(), ForceManager::SPACESHIP);
 	ForceManager::Instance()->RegisterPSystem(mSpaceship->getPSystem(), ForceManager::SPACESHIP);
 
 	// initialize the forces
@@ -135,3 +136,19 @@ GameScene::killPlanet(Planet* planet) {
 
 	return true;
 }
+
+void 
+GameScene::onCollision(physx::PxActor* actor1, physx::PxActor* actor2) {
+
+	auto data1 = reinterpret_cast<SpaceObjectData*>(actor1->userData);
+	auto data2 = reinterpret_cast<SpaceObjectData*>(actor2->userData);
+
+	// if bullet hits planet, planet kabooms
+	if ((data1->type == SpaceObjectType::BULLET || data1->type == SpaceObjectType::EXPLODING_PLANET) &&
+		(data2->type == SpaceObjectType::BULLET || data2->type == SpaceObjectType::EXPLODING_PLANET))
+	{
+		auto explodingPlanet = data1->type == SpaceObjectType::EXPLODING_PLANET ? data1->object : data2->object;
+		static_cast<ExplodingPlanet*>(explodingPlanet)->Explode();
+	}
+}
+

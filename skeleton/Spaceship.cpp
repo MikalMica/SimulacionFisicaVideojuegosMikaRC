@@ -3,7 +3,6 @@
 
 const float pi = 3.141592653589793f;
 
-// IMPORTANT rotar camara y sistema de particulas con nave
 void 
 Spaceship::Update(double t) {
 
@@ -43,7 +42,7 @@ Spaceship::keyPress(unsigned char key, const PxTransform& camera) {
 		propulsionTimer = 0;
 		break;
 	case 'h':
-		clearForce();
+		clearForceAndVelocity();
 		hAngle += pi / 2 * 0.2;
 		if (hAngle >= 2 * pi) hAngle = 0.0;
 		setRotation(PxQuat(hAngle, {0, 1, 0}));
@@ -52,7 +51,7 @@ Spaceship::keyPress(unsigned char key, const PxTransform& camera) {
 		GetCamera()->getTransform().q = getRotation();
 		break;
 	case 'k':
-		clearForce();
+		clearForceAndVelocity();
 		hAngle -= pi / 2 * 0.2;
 		if (hAngle <= 0.0) hAngle = 2 * pi;
 		setRotation(PxQuat(hAngle, { 0, 1, 0 }));

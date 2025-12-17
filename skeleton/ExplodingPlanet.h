@@ -1,6 +1,7 @@
 #pragma once
 #include "Planet.h"
 #include "ParticleSystem.h"
+#include "SpaceObjectData.h"
 
 class Scene;
 
@@ -19,7 +20,15 @@ class ExplodingPlanet : public Planet
 	// timer to delete this after it exploded
 	double destroyTimer = 0;
 
+	// flag to explode the planet out of physics time
+	bool hasToExplode;
+
+	// flag to see if the planet has exploded
+	bool hasExploded;
+
 	Scene* mScene;
+
+	void _Explode();
 
 public:
 
@@ -28,10 +37,18 @@ public:
 		, _K(k)
 		, gIndex(-1)
 		, mScene(scene)
-	{ }
+		, hasToExplode(false)
+		, hasExploded(false)
+	{
+		auto data = new SpaceObjectData();
+		data->type = SpaceObjectType::EXPLODING_PLANET;
+		data->object = this;
+		dBody->userData = data;
+	}
 
-	void Explode();
+	void Explode() { hasToExplode = true; }
 	void init() override;
+	bool hasPlanetExploded() { return hasExploded; }
 	void Update(double t) override;
 };
 

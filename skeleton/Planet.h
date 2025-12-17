@@ -16,6 +16,10 @@ public:
 		: DynamicSolid(*static_cast<DynamicSolid*>(solid))
 		, forceRadius(r)
 	{
+		auto data = new SpaceObjectData();
+		data->type = SpaceObjectType::PLANET;
+		data->object = this;
+		dBody->userData = data;
 	}
 
 	virtual void Update(double t);

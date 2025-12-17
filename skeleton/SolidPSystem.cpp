@@ -24,6 +24,7 @@ SolidPSystem::Update(double t) {
 		auto s = solids.front();
 		solids.pop();
 
+		s->clearForceAndVelocity();
 		s->Update(t);
 
 		if (!forces.empty()) {

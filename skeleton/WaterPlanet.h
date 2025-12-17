@@ -12,6 +12,11 @@ public:
 		auto geom = PxSphereGeometry(waterRadius);
 		auto shape = CreateShape(geom);
 		item = new RenderItem(shape, new PxTransform(solid->getPosition()), {0, 0, 1, 1});
+
+		auto data = new SpaceObjectData();
+		data->type = SpaceObjectType::WATER_PLANET;
+		data->object = this;
+		dBody->userData = data;
 	}
 
 	void init() override;

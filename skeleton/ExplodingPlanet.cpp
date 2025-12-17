@@ -5,7 +5,7 @@
 #include <random>
 
 void 
-ExplodingPlanet::Explode() {
+ExplodingPlanet::_Explode() {
 
 	item->release();
 
@@ -31,6 +31,13 @@ ExplodingPlanet::init() {
 
 void 
 ExplodingPlanet::Update(double t) {
+
+	if (hasToExplode) {
+		if (!hasExploded) {
+			_Explode();
+			hasExploded = true;
+		}
+	}
 
 	if (explosion != nullptr) {
 		explosion->Update(t);

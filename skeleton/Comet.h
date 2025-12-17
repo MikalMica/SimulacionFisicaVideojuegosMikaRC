@@ -5,6 +5,7 @@
 #include "ForceManager.h"
 #include "TorqueForceGenerator.h"
 #include "TornadoForceGenerator.h"
+#include "SpaceObjectData.h"
 
 class Comet : public DynamicSolid
 {
@@ -22,6 +23,11 @@ public:
 		ForceManager::Instance()->AddForceGenerator(new TorqueForceGenerator({ 1000, 0, 10000 }), ForceManager::SPIN);
 		ForceManager::Instance()->RegisterSolid(this, ForceManager::COMET);
 		ForceManager::Instance()->AddForceGenerator(new TornadoForceGenerator(Vector3(0, 1, 0), orbitOrigin, 100, radius), ForceManager::ORBIT);
+
+		auto data = new SpaceObjectData();
+		data->type = SpaceObjectType::COMET;
+		data->object = this;
+		dBody->userData = data;
 	}
 
 	void Update(double t);

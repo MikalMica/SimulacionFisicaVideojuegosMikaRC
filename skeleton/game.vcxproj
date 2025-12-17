@@ -253,6 +253,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlienSpaceship.cpp" />
     <ClCompile Include="Anchor.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Cannon.cpp" />
@@ -297,6 +298,7 @@
     <ClCompile Include="WindForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlienSpaceship.h" />
     <ClInclude Include="Anchor.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Cannon.h" />
@@ -332,6 +334,7 @@
     <ClInclude Include="SolidCannon.h" />
     <ClInclude Include="SolidGen.h" />
     <ClInclude Include="SolidPSystem.h" />
+    <ClInclude Include="SpaceObjectData.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="StaticSolid.h" />

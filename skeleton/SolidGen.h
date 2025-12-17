@@ -10,6 +10,7 @@
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
 #include "Scene.h"
+#include "SpaceObjectData.h"
 
 class DynamicSolid;
 
@@ -36,6 +37,7 @@ protected:
 	double probGen;
 	double lifeTime;
 	double lifeTimeVar;
+	SpaceObjectType mType;
 	
 	std::mt19937 mt;
 	std::uniform_real_distribution<double> u{ 0, 1 };
@@ -43,7 +45,7 @@ protected:
 public:
 
 	SolidGen(Scene* scene, float sFriction, float dFriction, float dFrictionVar, float resti, float restiVar, Vector3 const& boxSize, float den, float denVar, Vector3 const& pos, Vector3 const& posVar, 
-		double dist, double distVar, Vector3 const& vel, Vector3 const& velVar, int nSolids, double probability, Vector4 const& col, double lTime, double lTimeVar)
+		double dist, double distVar, Vector3 const& vel, Vector3 const& velVar, int nSolids, double probability, Vector4 const& col, double lTime, double lTimeVar, SpaceObjectType type = SpaceObjectType::DEFAULT)
 		: mScene(scene)
 		, staticFriction(sFriction)
 		, dynamicFriction(dFriction)
@@ -64,6 +66,7 @@ public:
 		, colour(col)
 		, lifeTime(lTime)
 		, lifeTimeVar(lTimeVar)
+		, mType(type)
 	{}
 
 	virtual std::vector<DynamicSolid*> generateS() = 0;

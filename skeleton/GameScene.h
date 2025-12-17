@@ -47,4 +47,7 @@ public:
 
 	void loadScene() override;
 	void unloadScene() override;
+
+	void onCollision(physx::PxActor* actor1, physx::PxActor* actor2) override;
+
 };

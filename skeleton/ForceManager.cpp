@@ -20,6 +20,11 @@ ForceManager::AddForceGenerator(ForceGenerator* gen, FORCE_GRP group) {
 			solidSystem.first->applyForceGenerator(gen);
 	}
 
+	for (auto solidCannon : solidCannons) {
+		if (collides[solidCannon.second][group])
+			solidCannon.first->applyForceGenerator(gen);
+	}
+
 	return forces.size() - 1;
 }
 
@@ -56,6 +61,17 @@ ForceManager::RegisterSolidPSystem(SolidPSystem* sys, INTER_GRP grp) {
 	solidSystems.push_back({ sys, grp });
 }
 
+void
+ForceManager::RegisterSolidCannon(SolidCannon* can, INTER_GRP grp) {
+
+	for (auto force : forces) {
+		if (collides[grp][force.second])
+			can->applyForceGenerator(force.first);
+	}
+
+	solidCannons.push_back({ can, grp });
+}
+
 
 void 
 ForceManager::Update(double t) {
@@ -64,6 +80,7 @@ ForceManager::Update(double t) {
 	for (int i = 0; i < size; ++i) {
 		auto s = solids.front();
 		solids.pop();
+		if(s.second != INTER_GRP::SPACESHIP) s.first->clearForceAndVelocity();
 		s.first->Update(t);
 		solids.push(s);
 	}
@@ -147,6 +164,11 @@ ForceManager::DeleteForceGenerator(std::pair<ForceGenerator*, int> gen) {
 	for (auto solidPSystem : solidSystems) {
 		if (collides[solidPSystem.second][gen.second])
 			solidPSystem.first->deregisterForceGenerator(aux.first);
+	}
+
+	for (auto solidCannon : solidCannons) {
+		if (collides[solidCannon.second][gen.second])
+			solidCannon.first->deleteForceGenerator(aux.first);
 	}
 
 	forces.erase(it);

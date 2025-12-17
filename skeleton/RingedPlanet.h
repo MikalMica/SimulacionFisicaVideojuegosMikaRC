@@ -15,7 +15,12 @@ public:
 	RingedPlanet(Scene* sce, Solid* solid, float r)
 		: Planet(solid, r)
 		, scene(sce)
-	{ }
+	{ 
+		auto data = new SpaceObjectData();
+		data->type = SpaceObjectType::COMET;
+		data->object = this;
+		dBody->userData = data;
+	}
 
 	void Update(double t) override;
 	void init() override;

@@ -6,6 +6,7 @@
 #include "Cannon.h"
 #include "Singleton.h"
 #include "SolidPSystem.h"
+#include "SolidCannon.h"
 
 class ForceManager : public Singleton<ForceManager>
 {
@@ -25,6 +26,7 @@ class ForceManager : public Singleton<ForceManager>
 
 	std::queue<std::pair<DynamicSolid*, int>> solids;
 	std::vector<std::pair<SolidPSystem*, int>> solidSystems;
+	std::vector<std::pair<SolidCannon*, int>> solidCannons;
 	
 private:
 	
@@ -76,6 +78,7 @@ public:
 
 	inline void RegisterSolid(DynamicSolid* s, INTER_GRP grp) { solids.push({ s, grp }); }
 	void RegisterSolidPSystem(SolidPSystem* sys, INTER_GRP grp);
+	void RegisterSolidCannon(SolidCannon* can, INTER_GRP grp);
 
 	inline std::pair<ForceGenerator*, int> getGeneratorAt(int i) { return forces[i]; }
 	std::vector<ForceGenerator*> getGeneratorGroup(FORCE_GRP group);
