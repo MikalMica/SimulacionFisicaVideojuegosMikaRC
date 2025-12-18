@@ -10,7 +10,7 @@ Carpetas bin y common https://ucomplutense-my.sharepoint.com/:f:/g/personal/liag
 
 
 
-\## MANUAL DE USUARIO
+## MANUAL DE USUARIO
 
 
 
@@ -18,7 +18,7 @@ Simulador espacial en el que el único objetivo es interactuar con las cosas y v
 
 
 
-Controles:
+**Controles**:
 
 
 
