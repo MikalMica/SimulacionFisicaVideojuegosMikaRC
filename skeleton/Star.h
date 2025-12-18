@@ -9,12 +9,13 @@ class Star : public Particle
 {
 
 	float radius;
-	int gIndex;
+	RealGravityForceGenerator* gForce;
 	ParticleSystem* explosion;
 
 	double blackHoleTimer;
 
 	bool initFlag;
+	bool blackHoled;
 
 public:
 
@@ -24,6 +25,7 @@ public:
 		, explosion(nullptr)
 		, blackHoleTimer(-1)
 		, initFlag(false)
+		, blackHoled(false)
 	{
 		item->release();
 
@@ -32,7 +34,8 @@ public:
 		pos = new PxTransform(posi);
 		item = new RenderItem(shape, pos, colour);
 
-		gIndex = ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(5.97 * pow(10, 15), getPosition(), rad + 250), ForceManager::GRAVITY);
+		gForce = new RealGravityForceGenerator(5.97 * pow(10, 15), getPosition(), rad + 250);
+		ForceManager::Instance()->AddForceGenerator(gForce, ForceManager::GRAVITY);
 	}
 
 	~Star() {

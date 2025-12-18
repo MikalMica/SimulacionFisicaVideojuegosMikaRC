@@ -4,6 +4,7 @@
 #include "SpaceObjectData.h"
 
 class Scene;
+class RealGravityForceGenerator;
 
 class ExplodingPlanet : public Planet
 {
@@ -11,8 +12,8 @@ class ExplodingPlanet : public Planet
 	// Explosion constant
 	float _K;
 
-	// index of the RealGravityForceGenerator of this planet to deactivate it once it exploded
-	int gIndex;
+	// pointer to the RealGravityForceGenerator of this planet to deactivate it once it exploded
+	RealGravityForceGenerator* gForce;
 
 	// Particle system only updated when the planet explode
 	ParticleSystem* explosion = nullptr;
@@ -35,7 +36,7 @@ public:
 	ExplodingPlanet(Solid* solid, float r, float k, Scene* scene)
 		: Planet(solid, r)
 		, _K(k)
-		, gIndex(-1)
+		, gForce(nullptr)
 		, mScene(scene)
 		, hasToExplode(false)
 		, hasExploded(false)

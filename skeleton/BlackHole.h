@@ -16,7 +16,7 @@ public:
 		pos = new PxTransform(posi);
 		item = new RenderItem(shape, pos, colour);
 
-		ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(5.97 * pow(10, 15), getPosition(), -1), ForceManager::BLACK_HOLE);
+		ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(5.97 * pow(10, 17), getPosition(), -1), ForceManager::BLACK_HOLE);
 	}
 };
 

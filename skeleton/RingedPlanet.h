@@ -2,6 +2,8 @@
 #include "Planet.h"
 #include "SolidPSystem.h"
 
+class TornadoForceGenerator;
+
 class RingedPlanet : public Planet
 {
 
@@ -10,7 +12,7 @@ class RingedPlanet : public Planet
 
 	Scene* scene = nullptr;
 
-	int tIndex;
+	TornadoForceGenerator* tForce;
 	Vector3 iPos;
 
 public:
@@ -18,7 +20,7 @@ public:
 	RingedPlanet(Scene* sce, Solid* solid, float r)
 		: Planet(solid, r)
 		, scene(sce)
-		,tIndex(-1)
+		, tForce(nullptr)
 	{ 
 		auto data = new SpaceObjectData();
 		data->type = SpaceObjectType::COMET;

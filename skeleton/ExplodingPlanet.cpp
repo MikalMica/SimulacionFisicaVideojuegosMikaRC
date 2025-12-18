@@ -12,7 +12,7 @@ ExplodingPlanet::_Explode() {
 
 	mScene->removeSolid(this);
 
-	ForceManager::Instance()->DeleteForceGenerator(ForceManager::Instance()->getGeneratorAt(gIndex));
+	ForceManager::Instance()->DeleteForceGenerator({ gForce, ForceManager::GRAVITY });
 
 	ForceManager::Instance()->AddForceGenerator(new ExplosionForceGenerator(radius, _K, 2, dBody->getGlobalPose().p), ForceManager::EXPLOSION);
 	GaussianGen* gen = new GaussianGen(dBody->getGlobalPose().p, { 0, 0, 0 }, 5, radius + 100, 0.6, 0.9, Particle::SI_EULER, 500, 2, 50, 0.5, { 0, 0, 0 }, { 50, 50, 50 }, { 1, 0.5, 0, 1 });
@@ -27,7 +27,8 @@ ExplodingPlanet::_Explode() {
 
 void 
 ExplodingPlanet::init() {
-	gIndex = ForceManager::Instance()->AddForceGenerator(new RealGravityForceGenerator(getMass(), getPosition(), forceRadius + 50), ForceManager::GRAVITY);
+	gForce = new RealGravityForceGenerator(getMass(), getPosition(), forceRadius + 50);
+	ForceManager::Instance()->AddForceGenerator(gForce, ForceManager::GRAVITY);
 	ForceManager::Instance()->RegisterSolid(this, ForceManager::PLANET);
 }
 

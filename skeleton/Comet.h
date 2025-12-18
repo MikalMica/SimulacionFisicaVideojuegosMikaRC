@@ -20,7 +20,7 @@ public:
 		trail->addGen(gen);
 
 		ForceManager::Instance()->RegisterPSystem(trail, ForceManager::COMET_PARTS);
-		ForceManager::Instance()->AddForceGenerator(new TorqueForceGenerator({ 1000, 0, 10000 }), ForceManager::SPIN);
+		ForceManager::Instance()->AddForceGenerator(new TorqueForceGenerator({ 10000, 0, 100000 }), ForceManager::SPIN);
 		ForceManager::Instance()->RegisterSolid(this, ForceManager::COMET);
 		ForceManager::Instance()->AddForceGenerator(new TornadoForceGenerator(Vector3(0, 1, 0), orbitOrigin, 100, radius), ForceManager::ORBIT);
 
